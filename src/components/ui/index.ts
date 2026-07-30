@@ -5,3 +5,4 @@ export * from "./FormError";
 export * from "./Select";
 export * from "./Toast";
 export * from "./Spinner";
+export * from "./Checkbox";

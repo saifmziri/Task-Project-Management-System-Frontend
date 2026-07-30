@@ -12,10 +12,10 @@ import type { LoginForm } from "@/schemas";
 
 import { useApiRequest } from "@/hooks/useApiRequest";
 import { useToast } from "@/context/ToastContext";
+import Checkbox from "@/components/ui/Checkbox";
 
 const LoginPage = () => {
   const navigate = useNavigate();
-
   const { serverError, execute } = useApiRequest();
 
   const { showToast } = useToast();
@@ -26,11 +26,16 @@ const LoginPage = () => {
     formState: { errors, isSubmitting },
   } = useForm<LoginForm>({
     resolver: zodResolver(loginSchema),
+    defaultValues: {
+      rememberMe: false,
+    },
   });
 
   const onSubmit = async (data: LoginForm) => {
+    const { rememberMe, ...loginRequest } = data;
+
     const success = await execute(async () => {
-      await AuthService.login(data);
+      await AuthService.login(loginRequest, rememberMe);
 
       showToast("Login successfully.", "success");
 
@@ -137,13 +142,11 @@ const LoginPage = () => {
             />
 
             <div className="flex items-center justify-between text-[13.5px]">
-              <label className="flex items-center gap-2 text-slate-600">
-                <input
-                  type="checkbox"
-                  className="h-4 w-4 rounded border-slate-300 text-slate-900 focus:ring-slate-900"
-                />
-                Remember me
-              </label>
+              <Checkbox
+                id="rememberMe"
+                label="Remember Me"
+                {...register("rememberMe")}
+              />
 
               <a
                 href="/forgot-password"

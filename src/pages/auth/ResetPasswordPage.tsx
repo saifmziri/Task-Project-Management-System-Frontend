@@ -47,21 +47,70 @@ const ResetPasswordPage = () => {
   };
 
   if (!token) {
-    return <div className="text-center">Invalid or expired reset link.</div>;
+    return (
+      <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-9 text-center shadow-[0_1px_2px_rgba(15,23,42,0.04),0_12px_32px_-8px_rgba(15,23,42,0.10)]">
+        <div className="mb-6 flex items-center justify-center">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-50">
+            <svg
+              viewBox="0 0 20 20"
+              className="h-5 w-5"
+              fill="none"
+              stroke="#DC2626"
+              strokeWidth="1.75"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <circle cx="10" cy="10" r="7" />
+              <path d="M10 6.5v4M10 13.2v.1" />
+            </svg>
+          </div>
+        </div>
+
+        <h1 className="mb-1.5 text-2xl font-semibold tracking-tight text-slate-900">
+          Invalid or expired link
+        </h1>
+
+        <p className="text-[14.5px] text-slate-500">
+          This password reset link is no longer valid. Request a new one to
+          continue.
+        </p>
+      </div>
+    );
   }
 
   return (
-    <div className="w-full max-w-md rounded-xl bg-white p-8 shadow-lg">
-      <h1 className="mb-2 text-center text-3xl font-bold">Reset Password</h1>
+    <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-9 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_12px_32px_-8px_rgba(15,23,42,0.10)]">
+      <div className="mb-6 flex items-center justify-center">
+        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-100">
+          <svg
+            viewBox="0 0 20 20"
+            className="h-5 w-5"
+            fill="none"
+            stroke="#0F172A"
+            strokeWidth="1.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <circle cx="8" cy="8" r="4" />
+            <path d="M11 11l6 6M14.5 14.5l1.8-1.8" />
+          </svg>
+        </div>
+      </div>
 
-      <p className="mb-8 text-center text-gray-500">Enter your new password.</p>
+      <h1 className="mb-1.5 text-center text-2xl font-semibold tracking-tight text-slate-900">
+        Reset password
+      </h1>
+
+      <p className="mb-8 text-center text-[14.5px] text-slate-500">
+        Enter a new password for your account.
+      </p>
 
       <FormError message={serverError} />
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
         <PasswordInput
           id="password"
-          label="New Password"
+          label="New password"
           placeholder="Enter new password"
           error={errors.password?.message}
           {...register("password")}
@@ -69,7 +118,7 @@ const ResetPasswordPage = () => {
 
         <PasswordInput
           id="password_confirmation"
-          label="Confirm Password"
+          label="Confirm password"
           placeholder="Confirm new password"
           error={errors.password_confirmation?.message}
           {...register("password_confirmation")}
@@ -78,9 +127,9 @@ const ResetPasswordPage = () => {
         <Button
           type="submit"
           loading={isSubmitting}
-          className="w-full bg-blue-600 py-3 text-white hover:bg-blue-700"
+          className="w-full bg-slate-900 py-3 text-white hover:cursor-pointer hover:bg-slate-800 disabled:bg-slate-400 disabled:hover:cursor-not-allowed"
         >
-          Reset Password
+          Reset password
         </Button>
       </form>
     </div>

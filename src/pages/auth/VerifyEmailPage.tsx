@@ -51,21 +51,25 @@ const VerifyEmailPage = () => {
 
   if (!token) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-100 px-4">
-        <div className="w-full max-w-md rounded-xl bg-white p-8 text-center shadow-lg">
-          <XCircle size={60} className="mx-auto mb-6 text-red-600" />
+      <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4">
+        <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-9 text-center shadow-[0_1px_2px_rgba(15,23,42,0.04),0_12px_32px_-8px_rgba(15,23,42,0.10)]">
+          <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-red-50">
+            <XCircle size={28} strokeWidth={1.75} className="text-red-600" />
+          </div>
 
-          <h2 className="text-2xl font-bold text-red-600">
-            Verification Failed
+          <h2 className="text-2xl font-semibold tracking-tight text-slate-900">
+            Verification failed
           </h2>
 
-          <p className="mt-3 text-gray-500">Verification token is missing.</p>
+          <p className="mt-2 text-[14.5px] text-slate-500">
+            Verification token is missing.
+          </p>
 
           <Button
-            className="mt-8 w-full bg-blue-600 py-3 text-white hover:bg-blue-700"
+            className="mt-8 w-full bg-slate-900 py-3 text-white hover:cursor-pointer hover:bg-slate-800"
             onClick={() => navigate("/login")}
           >
-            Back to Login
+            Back to login
           </Button>
         </div>
       </div>
@@ -73,18 +77,23 @@ const VerifyEmailPage = () => {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100 px-4">
-      <div className="w-full max-w-md rounded-xl bg-white p-8 text-center shadow-lg">
+    <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4">
+      <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-9 text-center shadow-[0_1px_2px_rgba(15,23,42,0.04),0_12px_32px_-8px_rgba(15,23,42,0.10)]">
         {status === "loading" && (
           <>
-            <LoaderCircle
-              size={60}
-              className="mx-auto mb-6 animate-spin text-blue-600"
-            />
+            <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-slate-100">
+              <LoaderCircle
+                size={28}
+                strokeWidth={1.75}
+                className="animate-spin text-slate-900"
+              />
+            </div>
 
-            <h2 className="text-2xl font-bold">Verifying Email</h2>
+            <h2 className="text-2xl font-semibold tracking-tight text-slate-900">
+              Verifying email
+            </h2>
 
-            <p className="mt-3 text-gray-500">
+            <p className="mt-2 text-[14.5px] text-slate-500">
               Please wait while we verify your email...
             </p>
           </>
@@ -92,31 +101,39 @@ const VerifyEmailPage = () => {
 
         {status === "success" && (
           <>
-            <CheckCircle size={60} className="mx-auto mb-6 text-green-600" />
+            <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-teal-50">
+              <CheckCircle
+                size={28}
+                strokeWidth={1.75}
+                className="text-teal-600"
+              />
+            </div>
 
-            <h2 className="text-2xl font-bold text-green-600">
-              Email Verified
+            <h2 className="text-2xl font-semibold tracking-tight text-slate-900">
+              Email verified
             </h2>
 
-            <p className="mt-3 text-gray-500">{message}</p>
+            <p className="mt-2 text-[14.5px] text-slate-500">{message}</p>
           </>
         )}
 
         {status === "error" && (
           <>
-            <XCircle size={60} className="mx-auto mb-6 text-red-600" />
+            <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-red-50">
+              <XCircle size={28} strokeWidth={1.75} className="text-red-600" />
+            </div>
 
-            <h2 className="text-2xl font-bold text-red-600">
-              Verification Failed
+            <h2 className="text-2xl font-semibold tracking-tight text-slate-900">
+              Verification failed
             </h2>
 
-            <p className="mt-3 text-gray-500">{message}</p>
+            <p className="mt-2 text-[14.5px] text-slate-500">{message}</p>
 
             <Button
-              className="mt-8 w-full bg-blue-600 py-3 text-white hover:bg-blue-700"
+              className="mt-8 w-full bg-slate-900 py-3 text-white hover:cursor-pointer hover:bg-slate-800"
               onClick={() => navigate("/login")}
             >
-              Back to Login
+              Back to login
             </Button>
           </>
         )}

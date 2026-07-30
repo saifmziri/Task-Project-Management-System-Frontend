@@ -22,4 +22,22 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+api.interceptors.response.use(
+  (response) => response,
+
+  (error) => {
+    if (
+      axios.isAxiosError(error) &&
+      error.response?.status === 401 &&
+      window.location.pathname !== "/login"
+    ) {
+      TokenService.removeToken();
+
+      window.location.replace("/login");
+    }
+
+    return Promise.reject(error);
+  },
+);
+
 export default api;

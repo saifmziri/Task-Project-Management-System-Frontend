@@ -13,11 +13,12 @@ import type {
 import { TokenService } from "./token.service";
 
 class AuthService {
-  async login(data: LoginRequest): Promise<LoginData> {
+  async login(data: LoginRequest, rememberMe: boolean): Promise<LoginData> {
     const response = await AuthApi.login(data);
 
-    const loginData = response.data.data;
-    TokenService.setToken(loginData.token);
+    const loginData = response.data.data!;
+
+    TokenService.setToken(loginData.token, rememberMe);
 
     return loginData;
   }
@@ -30,12 +31,7 @@ class AuthService {
 
   async verifyEmail(data: VerifyEmailRequest): Promise<LoginData> {
     const response = await AuthApi.verifyEmail(data);
-
-    const loginData = response.data.data;
-
-    TokenService.setToken(loginData.token);
-
-    return loginData;
+    return response.data.data!;
   }
 
   async resendVerificationEmail(

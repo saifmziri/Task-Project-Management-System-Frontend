@@ -35,11 +35,30 @@ const ForgotPasswordPage = () => {
   };
 
   return (
-    <div className="w-full max-w-md rounded-xl bg-white p-8 shadow-lg">
-      <h1 className="mb-2 text-center text-3xl font-bold">Forgot Password</h1>
+    <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-9 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_12px_32px_-8px_rgba(15,23,42,0.10)]">
+      <div className="mb-6 flex items-center justify-center">
+        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-100">
+          <svg
+            viewBox="0 0 20 20"
+            className="h-5 w-5"
+            fill="none"
+            stroke="#0F172A"
+            strokeWidth="1.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <rect x="3" y="5" width="14" height="10" rx="1.5" />
+            <path d="M3.5 6l6.5 5 6.5-5" />
+          </svg>
+        </div>
+      </div>
 
-      <p className="mb-8 text-center text-gray-500">
-        Enter your email to receive a password reset link.
+      <h1 className="mb-1.5 text-center text-2xl font-semibold tracking-tight text-slate-900">
+        Forgot password?
+      </h1>
+
+      <p className="mb-8 text-center text-[14.5px] text-slate-500">
+        Enter your email and we&apos;ll send you a reset link.
       </p>
 
       <FormError message={serverError} />
@@ -57,11 +76,18 @@ const ForgotPasswordPage = () => {
         <Button
           type="submit"
           loading={isSubmitting}
-          className="w-full bg-blue-600 py-3 text-white hover:bg-blue-700"
+          className="w-full bg-slate-900 py-3 text-white hover:cursor-pointer hover:bg-slate-800 disabled:bg-slate-400 disabled:hover:cursor-not-allowed"
         >
-          Send Reset Link
+          Send reset link
         </Button>
       </form>
+
+      <p className="mt-8 text-center text-[14px] text-slate-500">
+        Remembered your password?{" "}
+        <a href="/login" className="font-medium text-slate-900 hover:underline">
+          Back to sign in
+        </a>
+      </p>
     </div>
   );
 };
