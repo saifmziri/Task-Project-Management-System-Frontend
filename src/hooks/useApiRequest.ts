@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { handleApiError } from "../utils/api-error";
+import { handleApiError } from "@/utils/api-error";
 
 export const useApiRequest = () => {
   const [serverError, setServerError] = useState("");

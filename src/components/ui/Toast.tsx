@@ -15,7 +15,7 @@ const colors = {
   info: "bg-blue-600",
 };
 
-const Toast = ({ message, type, onClose }: ToastProps) => {
+export const Toast = ({ message, type, onClose }: ToastProps) => {
   return (
     <div
       className={`
@@ -39,5 +39,3 @@ const Toast = ({ message, type, onClose }: ToastProps) => {
     </div>
   );
 };
-
-export default Toast;

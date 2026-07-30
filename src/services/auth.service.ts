@@ -8,6 +8,7 @@ import type {
   VerifyEmailRequest,
   ResendVerificationRequest,
   ChangePasswordRequest,
+  resetPasswordRequest,
 } from "../types/auth.types";
 import { TokenService } from "./token.service";
 
@@ -45,6 +46,14 @@ class AuthService {
 
   async changePassword(data: ChangePasswordRequest): Promise<void> {
     await AuthApi.changePassword(data);
+  }
+
+  async forgotPassword(email: string): Promise<void> {
+    await AuthApi.forgotPassword(email);
+  }
+
+  async resetPassword(data: resetPasswordRequest): Promise<void> {
+    await AuthApi.resetPassword(data);
   }
 
   async logout(): Promise<void> {

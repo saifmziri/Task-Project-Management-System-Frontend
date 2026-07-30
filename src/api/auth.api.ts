@@ -1,5 +1,5 @@
 import api from "./axios";
-import { API_ENDPOINTS } from "../constants/api-endpoints";
+import { API_ENDPOINTS } from "@/constants/api-endpoints";
 
 import type {
   LoginRequest,
@@ -9,10 +9,11 @@ import type {
   VerifyEmailRequest,
   ResendVerificationRequest,
   ChangePasswordRequest,
+  resetPasswordRequest,
 } from "../types/auth.types";
 
-import type { User } from "../types/user.types";
-import type { ApiResponse } from "../types/api.types";
+import type { User } from "@/types/user.types";
+import type { ApiResponse } from "@/types/api.types";
 
 export const AuthApi = {
   login: (data: LoginRequest) => {
@@ -20,11 +21,17 @@ export const AuthApi = {
   },
 
   register: (data: RegisterRequest) => {
-    return api.post<ApiResponse<RegisterData>>(API_ENDPOINTS.AUTH.REGISTER, data);
+    return api.post<ApiResponse<RegisterData>>(
+      API_ENDPOINTS.AUTH.REGISTER,
+      data,
+    );
   },
 
   verifyEmail: (data: VerifyEmailRequest) => {
-    return api.post<ApiResponse<LoginData>>(API_ENDPOINTS.AUTH.VERIFY_EMAIL, data);
+    return api.post<ApiResponse<LoginData>>(
+      API_ENDPOINTS.AUTH.VERIFY_EMAIL,
+      data,
+    );
   },
 
   resendVerificationEmail: (data: ResendVerificationRequest) => {
@@ -47,5 +54,15 @@ export const AuthApi = {
 
   getCurrentUser: () => {
     return api.get<ApiResponse<User>>(API_ENDPOINTS.AUTH.CURRENT_USER);
+  },
+
+  forgotPassword: (email: string) => {
+    return api.post<ApiResponse<null>>(API_ENDPOINTS.AUTH.FORGOT_PASSWORD, {
+      email,
+    });
+  },
+
+  resetPassword: (data: resetPasswordRequest) => {
+    return api.post<ApiResponse<null>>(API_ENDPOINTS.AUTH.RESET_PASSWORD, data);
   },
 };

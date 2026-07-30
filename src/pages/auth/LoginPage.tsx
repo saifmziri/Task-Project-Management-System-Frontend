@@ -3,18 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import Input from "../../components/ui/Input";
-import PasswordInput from "../../components/ui/PasswordInput";
-import Button from "../../components/ui/Button";
-import FormError from "../../components/ui/FormError";
+import { Input, PasswordInput, Button, FormError } from "@/components/ui";
 
-import AuthService from "../../services/auth.service";
+import AuthService from "@/services/auth.service";
 
-import { loginSchema } from "../../schemas";
-import type { LoginForm } from "../../schemas";
+import { loginSchema } from "@/schemas";
+import type { LoginForm } from "@/schemas";
 
-import { useApiRequest } from "../../hooks/useApiRequest";
-import { useToast } from "../../context/ToastContext";
+import { useApiRequest } from "@/hooks/useApiRequest";
+import { useToast } from "@/context/ToastContext";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -149,7 +146,7 @@ const LoginPage = () => {
               </label>
 
               <a
-                href="/change-password"
+                href="/forgot-password"
                 className="font-medium text-slate-700 hover:text-slate-900"
               >
                 Forgot password?

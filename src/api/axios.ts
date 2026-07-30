@@ -1,5 +1,5 @@
 import axios from "axios";
-import { TokenService } from "../services/token.service";
+import { TokenService } from "@/services/token.service";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,

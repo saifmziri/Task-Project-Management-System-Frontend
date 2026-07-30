@@ -3,7 +3,7 @@ interface SpinnerProps {
   className?: string;
 }
 
-const Spinner = ({
+export const Spinner = ({
   size = 20,
   className = "",
 }: SpinnerProps) => {
@@ -19,5 +19,3 @@ const Spinner = ({
     />
   );
 };
-
-export default Spinner;

@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 
-import Input from "./Input";
+import { Input } from "@/components/ui";
 
 import type { InputHTMLAttributes } from "react";
 
-interface PasswordInputProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, "type"> {
+interface PasswordInputProps extends Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  "type"
+> {
   label?: string;
   error?: string;
 }
 
-const PasswordInput = ({
+export const PasswordInput = ({
   label,
   error,
   ...props
@@ -36,5 +38,3 @@ const PasswordInput = ({
     />
   );
 };
-
-export default PasswordInput;

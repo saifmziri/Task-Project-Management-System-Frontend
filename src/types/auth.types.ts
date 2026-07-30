@@ -36,3 +36,10 @@ export interface ChangePasswordRequest {
   new_password: string;
   new_password_confirmation: string;
 }
+
+export interface resetPasswordRequest {
+  token: string;
+  password: string;
+  password_confirmation: string;
+  email: string;
+}

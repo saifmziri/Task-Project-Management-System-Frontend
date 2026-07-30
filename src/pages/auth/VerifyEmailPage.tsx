@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { CheckCircle, LoaderCircle, XCircle } from "lucide-react";
 
-import Button from "../../components/ui/Button";
+import { Button } from "@/components/ui";
 
 import AuthService from "../../services/auth.service";
 import { handleApiError } from "../../utils/api-error";
@@ -24,7 +24,6 @@ const VerifyEmailPage = () => {
   useEffect(() => {
     if (!token) return;
     const verifyEmail = async () => {
-      
       if (hasVerified.current) return;
 
       hasVerified.current = true;

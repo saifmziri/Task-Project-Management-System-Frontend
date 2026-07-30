@@ -1,16 +1,19 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import PasswordInput from "../../components/ui/PasswordInput";
-import Button from "../../components/ui/Button";
-import FormError from "../../components/ui/FormError";
+import {
+  PasswordInput,
+  Button,
+  FormError
 
-import AuthService from "../../services/auth.service";
+}from "@/components/ui";
 
-import { changePasswordSchema, type ChangePasswordForm } from "../../schemas";
+import AuthService from "@/services/auth.service";
 
-import { useToast } from "../../context/ToastContext";
-import { useApiRequest } from "../../hooks/useApiRequest";
+import { changePasswordSchema, type ChangePasswordForm } from "@/schemas";
+
+import { useToast } from "@/context/ToastContext";
+import { useApiRequest } from "@/hooks/useApiRequest";
 
 const ChangePasswordPage = () => {
   const { serverError, execute } = useApiRequest();

@@ -1,12 +1,12 @@
 import type { ButtonHTMLAttributes } from "react";
 
-import Spinner from "./Spinner";
+import { Spinner } from "@/components/ui";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean;
 }
 
-const Button = ({
+export const Button = ({
   children,
   loading = false,
   disabled,
@@ -35,5 +35,3 @@ const Button = ({
     </button>
   );
 };
-
-export default Button;

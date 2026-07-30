@@ -16,7 +16,7 @@ interface SelectProps
   options: Option[];
 }
 
-const Select = forwardRef<HTMLSelectElement, SelectProps>(
+export const Select = forwardRef<HTMLSelectElement, SelectProps>(
   (
     {
       id,
@@ -84,5 +84,3 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
 );
 
 Select.displayName = "Select";
-
-export default Select;

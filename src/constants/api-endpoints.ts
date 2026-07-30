@@ -8,6 +8,8 @@ export const API_ENDPOINTS = {
     RESEND_VERIFICATION: "/email/resend-verification",
 
     CHANGE_PASSWORD: "/user/change-password",
+    FORGOT_PASSWORD: "/forgot-password",
+    RESET_PASSWORD: "/reset-password",
 
     CURRENT_USER: "/user",
   },
