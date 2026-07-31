@@ -25,7 +25,7 @@ class AuthService {
 
   async register(data: RegisterRequest): Promise<RegisterData> {
     const response = await AuthApi.register(data);
-
+console.log("Register response:", response.data.data);
     return response.data.data;
   }
 

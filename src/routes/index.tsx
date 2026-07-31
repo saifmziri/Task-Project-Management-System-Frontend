@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import AuthLayout from "../layouts/AuthLayout";
-import DashboardLayout from "../layouts/DashboardLayout";
+import AppLayout from "../layouts/AppLayout";
 
 import LoginPage from "../pages/auth/LoginPage";
 import RegisterPage from "../pages/auth/RegisterPage";
@@ -16,7 +15,6 @@ import NotFoundPage from "../pages/NotFoundPage";
 
 export const router = createBrowserRouter([
   {
-    element: <AuthLayout />,
     children: [
       {
         path: "/login",
@@ -44,8 +42,9 @@ export const router = createBrowserRouter([
       },
     ],
   },
+  // noka hami shen bchna teda , pash dame user chekain de wale kainbas agar eki token habit bshet bchit
   {
-    element: <DashboardLayout />,
+    element: <AppLayout />,
     children: [
       {
         path: "/",

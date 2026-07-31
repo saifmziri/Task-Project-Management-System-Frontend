@@ -37,26 +37,28 @@ const ChangePasswordPage = () => {
   };
 
   return (
-    <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-9 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_12px_32px_-8px_rgba(15,23,42,0.10)]">
+    <div className="animate-fade-up relative w-full max-w-md overflow-hidden rounded-[1.75rem] border border-slate-200/80 bg-white p-9 shadow-(--shadow-card) transition-shadow duration-300 hover:shadow-(--shadow-card-hover)">
+      <div className="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-brass-300 via-brass-500 to-brass-300" />
+
       <div className="mb-6 flex items-center justify-center">
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-100">
+        <div className="brass-ring flex h-14 w-14 items-center justify-center rounded-2xl shadow-[0_2px_10px_-2px_rgba(189,143,60,0.35)]">
           <svg
             viewBox="0 0 20 20"
-            className="h-5 w-5"
+            className="h-5.5 w-5.5"
             fill="none"
-            stroke="#0F172A"
+            stroke="#0b1220"
             strokeWidth="1.75"
             strokeLinecap="round"
             strokeLinejoin="round"
           >
             <rect x="4" y="9" width="12" height="8" rx="1.5" />
             <path d="M6.5 9V6a3.5 3.5 0 0 1 7 0v3" />
-            <circle cx="10" cy="13" r="1" fill="#0F172A" stroke="none" />
+            <circle cx="10" cy="13" r="1" fill="#0b1220" stroke="none" />
           </svg>
         </div>
       </div>
 
-      <h1 className="mb-1.5 text-center text-2xl font-semibold tracking-tight text-slate-900">
+      <h1 className="text-navy-900 mb-1.5 text-center text-[26px] font-semibold tracking-tight">
         Change password
       </h1>
 
@@ -76,7 +78,7 @@ const ChangePasswordPage = () => {
           {...register("current_password")}
         />
 
-        <div className="h-px bg-slate-100" />
+        <div className="h-px bg-linear-to-r from-transparent via-slate-200 to-transparent" />
 
         <PasswordInput
           id="new_password"
@@ -96,14 +98,14 @@ const ChangePasswordPage = () => {
           {...register("new_password_confirmation")}
         />
 
-        <p className="text-[12.5px] leading-relaxed text-slate-400">
+        <p className="rounded-lg bg-slate-50 px-3 py-2.5 text-[12.5px] leading-relaxed text-slate-500">
           Use at least 8 characters, mixing letters, numbers, and symbols.
         </p>
 
         <Button
           type="submit"
           loading={isSubmitting}
-          className="w-full bg-slate-900 py-3 text-white hover:cursor-pointer hover:bg-slate-800 disabled:bg-slate-400 disabled:hover:cursor-not-allowed"
+          className="w-full bg-linear-to-b from-navy-800 to-navy-900 py-3 font-medium text-white shadow-lg shadow-navy-900/15 transition-all duration-200 hover:cursor-pointer hover:from-navy-700 hover:to-navy-800 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-brass-400 focus-visible:ring-offset-2 active:scale-[0.99] disabled:from-slate-300 disabled:to-slate-300 disabled:text-slate-500 disabled:hover:cursor-not-allowed disabled:active:scale-100"
         >
           Change password
         </Button>

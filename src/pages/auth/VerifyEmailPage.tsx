@@ -51,90 +51,148 @@ const VerifyEmailPage = () => {
 
   if (!token) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4">
-        <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-9 text-center shadow-[0_1px_2px_rgba(15,23,42,0.04),0_12px_32px_-8px_rgba(15,23,42,0.10)]">
-          <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-red-50">
-            <XCircle size={28} strokeWidth={1.75} className="text-red-600" />
+      <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-slate-50 px-4">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(46rem_28rem_at_50%_-10%,rgba(225,29,72,0.08),transparent_60%)]" />
+
+        <div className="animate-fade-up relative w-full max-w-md overflow-hidden rounded-[1.75rem] border border-slate-200/80 bg-white p-10 text-center shadow-(--shadow-card)">
+          <div className="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-rose-300 via-rose-500 to-rose-300" />
+
+          <div className="animate-pop mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-rose-100 bg-rose-50 shadow-[0_0_0_6px_rgba(225,29,72,0.06)]">
+            <XCircle size={28} strokeWidth={1.75} className="text-rose-600" />
           </div>
 
-          <h2 className="text-2xl font-semibold tracking-tight text-slate-900">
+          <h2 className="text-navy-900 text-[22px] font-semibold tracking-tight">
             Verification failed
           </h2>
 
-          <p className="mt-2 text-[14.5px] text-slate-500">
+          <p className="mt-2 text-[14.5px] leading-relaxed text-slate-500">
             Verification token is missing.
           </p>
 
+          <div className="my-7 h-px bg-linear-to-r from-transparent via-slate-200 to-transparent" />
+
           <Button
-            className="mt-8 w-full bg-slate-900 py-3 text-white hover:cursor-pointer hover:bg-slate-800"
+            className="w-full bg-linear-to-b from-navy-800 to-navy-900 py-3 font-medium text-white shadow-lg shadow-navy-900/15 transition-all duration-200 hover:cursor-pointer hover:from-navy-700 hover:to-navy-800 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-brass-400 focus-visible:ring-offset-2 active:scale-[0.99]"
             onClick={() => navigate("/login")}
           >
             Back to login
           </Button>
+
+          <p className="mt-5 text-[13px] text-slate-400">
+            Need a new link?{" "}
+            <a
+              href="/forgot-password"
+              className="font-medium text-brass-600 transition-colors hover:text-brass-700"
+            >
+              Request one here
+            </a>
+          </p>
         </div>
       </div>
     );
   }
 
+  const statusGlow =
+    status === "success"
+      ? "bg-[radial-gradient(46rem_28rem_at_50%_-10%,rgba(16,185,129,0.10),transparent_60%)]"
+      : status === "error"
+        ? "bg-[radial-gradient(46rem_28rem_at_50%_-10%,rgba(225,29,72,0.08),transparent_60%)]"
+        : "bg-[radial-gradient(46rem_28rem_at_50%_-10%,rgba(189,143,60,0.12),transparent_60%)]";
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4">
-      <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-9 text-center shadow-[0_1px_2px_rgba(15,23,42,0.04),0_12px_32px_-8px_rgba(15,23,42,0.10)]">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-slate-50 px-4">
+      <div
+        className={`pointer-events-none absolute inset-0 transition-colors duration-500 ${statusGlow}`}
+      />
+
+      <div className="animate-fade-up relative w-full max-w-md overflow-hidden rounded-[1.75rem] border border-slate-200/80 bg-white p-10 text-center shadow-(--shadow-card)">
+        <div
+          className={
+            status === "success"
+              ? "absolute inset-x-0 top-0 h-1 bg-linear-to-r from-emerald-300 via-emerald-500 to-emerald-300"
+              : status === "error"
+                ? "absolute inset-x-0 top-0 h-1 bg-linear-to-r from-rose-300 via-rose-500 to-rose-300"
+                : "absolute inset-x-0 top-0 h-1 bg-linear-to-r from-brass-300 via-brass-500 to-brass-300"
+          }
+        />
+
         {status === "loading" && (
           <>
-            <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-slate-100">
+            <div className="brass-ring animate-pop mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl shadow-[0_0_0_6px_rgba(189,143,60,0.08)]">
               <LoaderCircle
                 size={28}
                 strokeWidth={1.75}
-                className="animate-spin text-slate-900"
+                className="text-navy-900 animate-spin"
               />
             </div>
 
-            <h2 className="text-2xl font-semibold tracking-tight text-slate-900">
-              Verifying email
+            <h2 className="text-navy-900 text-[22px] font-semibold tracking-tight">
+              Verifying your email
             </h2>
 
-            <p className="mt-2 text-[14.5px] text-slate-500">
-              Please wait while we verify your email...
+            <p className="mt-2 text-[14.5px] leading-relaxed text-slate-500">
+              This will only take a moment. Please don&apos;t close this
+              window.
             </p>
           </>
         )}
 
         {status === "success" && (
           <>
-            <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-teal-50">
+            <div className="animate-pop mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-emerald-100 bg-emerald-50 shadow-[0_0_0_6px_rgba(16,185,129,0.08)]">
               <CheckCircle
                 size={28}
                 strokeWidth={1.75}
-                className="text-teal-600"
+                className="text-emerald-600"
               />
             </div>
 
-            <h2 className="text-2xl font-semibold tracking-tight text-slate-900">
+            <h2 className="text-navy-900 text-[22px] font-semibold tracking-tight">
               Email verified
             </h2>
 
-            <p className="mt-2 text-[14.5px] text-slate-500">{message}</p>
+            <p className="mt-2 text-[14.5px] leading-relaxed text-slate-500">
+              {message}
+            </p>
+
+            <div className="mx-auto mt-6 h-1 w-40 overflow-hidden rounded-full bg-emerald-100">
+              <div className="animate-countdown h-full rounded-full bg-emerald-500" />
+            </div>
           </>
         )}
 
         {status === "error" && (
           <>
-            <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-red-50">
-              <XCircle size={28} strokeWidth={1.75} className="text-red-600" />
+            <div className="animate-pop mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-rose-100 bg-rose-50 shadow-[0_0_0_6px_rgba(225,29,72,0.06)]">
+              <XCircle size={28} strokeWidth={1.75} className="text-rose-600" />
             </div>
 
-            <h2 className="text-2xl font-semibold tracking-tight text-slate-900">
+            <h2 className="text-navy-900 text-[22px] font-semibold tracking-tight">
               Verification failed
             </h2>
 
-            <p className="mt-2 text-[14.5px] text-slate-500">{message}</p>
+            <p className="mt-2 text-[14.5px] leading-relaxed text-slate-500">
+              {message}
+            </p>
+
+            <div className="my-7 h-px bg-linear-to-r from-transparent via-slate-200 to-transparent" />
 
             <Button
-              className="mt-8 w-full bg-slate-900 py-3 text-white hover:cursor-pointer hover:bg-slate-800"
+              className="w-full bg-linear-to-b from-navy-800 to-navy-900 py-3 font-medium text-white shadow-lg shadow-navy-900/15 transition-all duration-200 hover:cursor-pointer hover:from-navy-700 hover:to-navy-800 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-brass-400 focus-visible:ring-offset-2 active:scale-[0.99]"
               onClick={() => navigate("/login")}
             >
               Back to login
             </Button>
+
+            <p className="mt-5 text-[13px] text-slate-400">
+              Link expired?{" "}
+              <a
+                href="/forgot-password"
+                className="font-medium text-brass-600 transition-colors hover:text-brass-700"
+              >
+                Request a new one
+              </a>
+            </p>
           </>
         )}
       </div>
