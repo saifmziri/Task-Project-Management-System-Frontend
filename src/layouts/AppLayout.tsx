@@ -5,13 +5,13 @@ import Topbar from "@/components/layout/Topbar";
 
 const DashboardLayout = () => {
   return (
-    <div className="flex min-h-screen bg-slate-100">
+    <div className="min-h-screen bg-slate-100">
       <Sidebar />
 
-      <div className="flex flex-1 flex-col">
+      <div className="ml-64 flex min-h-screen flex-col">
         <Topbar />
 
-        <main className="flex-1 p-6">
+        <main className="flex-1 p-6 pt-22">
           <Outlet />
         </main>
       </div>

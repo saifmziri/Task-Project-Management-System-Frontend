@@ -25,28 +25,28 @@ export const API_ENDPOINTS = {
   },
 
   PROJECTS: {
-    LIST: "/Projects",
+    LIST: "/projects",
 
-    CREATE: "/Projects",
+    CREATE: "/projects",
 
-    BY_ID: (id: number | string) => `/Projects/${id}`,
+    BY_ID: (id: number | string) => `/projects/${id}`,
 
-    UPDATE: (id: number | string) => `/Projects/${id}`,
+    UPDATE: (id: number | string) => `/projects/${id}`,
 
-    DELETE: (id: number | string) => `/Projects/${id}`,
+    DELETE: (id: number | string) => `/projects/${id}`,
   },
 
   TASKS: {
-    LIST: "/Tasks",
+    LIST: "/tasks",
 
-    CREATE: "/Tasks",
+    CREATE: "/tasks",
 
-    BY_ID: (id: number | string) => `/Tasks/${id}`,
+    BY_ID: (id: number | string) => `/tasks/${id}`,
 
-    UPDATE: (id: number | string) => `/Tasks/${id}`,
+    UPDATE: (id: number | string) => `/tasks/${id}`,
 
-    DELETE: (id: number | string) => `/Tasks/${id}`,
+    DELETE: (id: number | string) => `/tasks/${id}`,
 
-    CHANGE_STATUS: (id: number | string) => `/Tasks/${id}/Status`,
+    CHANGE_STATUS: (id: number | string) => `/tasks/${id}/status`,
   },
 } as const;

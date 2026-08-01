@@ -6,5 +6,5 @@ export interface User {
   email: string;
   phone_number: string;
   status: "active" | "inactive";
-  role: UserRole;
+  role_ID: UserRole;
 }

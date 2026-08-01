@@ -10,10 +10,10 @@ import type {
   ResendVerificationRequest,
   ChangePasswordRequest,
   resetPasswordRequest,
-} from "../types/auth.types";
+} from "@/types";
 
-import type { User } from "@/types/user.types";
-import type { ApiResponse } from "@/types/api.types";
+import type { User } from "@/types";
+import type { ApiResponse } from "@/types";
 
 export const AuthApi = {
   login: (data: LoginRequest) => {

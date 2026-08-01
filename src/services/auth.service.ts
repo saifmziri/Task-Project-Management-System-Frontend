@@ -11,6 +11,7 @@ import type {
   resetPasswordRequest,
 } from "../types/auth.types";
 import { TokenService } from "./token.service";
+import { CurrentUserService } from "./current-user.service";
 
 class AuthService {
   async login(data: LoginRequest, rememberMe: boolean): Promise<LoginData> {
@@ -19,13 +20,14 @@ class AuthService {
     const loginData = response.data.data!;
 
     TokenService.setToken(loginData.token, rememberMe);
+    CurrentUserService.setUser(loginData.user);
 
     return loginData;
   }
 
   async register(data: RegisterRequest): Promise<RegisterData> {
     const response = await AuthApi.register(data);
-console.log("Register response:", response.data.data);
+    console.log("Register response:", response.data.data);
     return response.data.data;
   }
 
@@ -56,6 +58,7 @@ console.log("Register response:", response.data.data);
     await AuthApi.logout();
 
     TokenService.removeToken();
+    CurrentUserService.removeUser();
   }
 
   async getCurrentUser() {
