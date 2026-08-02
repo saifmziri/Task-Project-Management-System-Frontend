@@ -12,7 +12,7 @@ import type { LoginForm } from "@/schemas";
 
 import { useApiRequest } from "@/hooks/useApiRequest";
 import { useToast } from "@/context/ToastContext";
-import Checkbox from "@/components/ui/Checkbox";
+import { Checkbox } from "@/components/ui";
 
 const LoginPage = () => {
   const navigate = useNavigate();

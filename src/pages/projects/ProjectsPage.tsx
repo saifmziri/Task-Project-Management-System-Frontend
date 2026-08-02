@@ -2,25 +2,32 @@ import { useCallback, useEffect, useState } from "react";
 
 import { Search, Plus } from "lucide-react";
 
-import { Button, Input } from "@/components/ui";
+import { Button, Input, Modal } from "@/components/ui";
 import ProjectCard from "@/components/project/ProjectCard";
+import ProjectForm from "@/components/project/ProjectForm";
 
 import ProjectService from "@/services/project.service";
 import { CurrentUserService } from "@/services/current-user.service";
-
+import { useToast } from "@/context/ToastContext";
 import type { Project } from "@/types";
+import { ConfirmDialog } from "@/components/ui";
 
 import { useApiRequest } from "@/hooks/useApiRequest";
 
 const ProjectsPage = () => {
   const [projects, setProjects] = useState<Project[]>([]);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [openForm, setOpenForm] = useState(false);
+  const { showToast } = useToast();
+  const [openDelete, setOpenDelete] = useState(false);
 
   const { serverError, execute } = useApiRequest();
 
   const isAdmin = CurrentUserService.isAdmin();
-console.log("isAdmin", isAdmin);
+
   const loadProjects = useCallback(
     async (searchValue?: string) => {
       setLoading(true);
@@ -37,6 +44,27 @@ console.log("isAdmin", isAdmin);
     },
     [execute],
   );
+
+  const handleDelete = useCallback(async () => {
+    if (!selectedProject) {
+      return;
+    }
+
+    const success = await execute(async () => {
+      await ProjectService.delete(selectedProject.id);
+
+      showToast("Project deleted successfully.", "success");
+    });
+
+    if (!success) {
+      return;
+    }
+
+    setOpenDelete(false);
+    setSelectedProject(null);
+
+    await loadProjects(search);
+  }, [selectedProject, execute, loadProjects, search, showToast]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -57,7 +85,13 @@ console.log("isAdmin", isAdmin);
         </div>
 
         {isAdmin && (
-          <Button className="flex items-center gap-2 bg-slate-900 px-5 py-3 text-white hover:bg-slate-800">
+          <Button
+            onClick={() => {
+              setSelectedProject(null);
+              setOpenForm(true);
+            }}
+            className="flex items-center gap-2 bg-slate-900 px-5 py-3 text-white hover:bg-slate-800"
+          >
             <Plus size={18} />
             New Project
           </Button>
@@ -97,10 +131,58 @@ console.log("isAdmin", isAdmin);
       ) : (
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {projects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+            <ProjectCard
+              key={project.id}
+              project={project}
+              isAdmin={isAdmin}
+              onEdit={(project) => {
+                setSelectedProject(project);
+                setOpenForm(true);
+              }}
+              onDelete={(project) => {
+                setSelectedProject(project);
+                setOpenDelete(true);
+              }}
+            />
           ))}
         </div>
       )}
+
+      <Modal
+        open={openForm}
+        onClose={() => {
+          setOpenForm(false);
+          setSelectedProject(null);
+        }}
+        title={selectedProject ? "Update Project" : "Create Project"}
+      >
+        <ProjectForm
+          project={selectedProject ?? undefined}
+          onCancel={() => {
+            setOpenForm(false);
+            setSelectedProject(null);
+          }}
+          onSuccess={() => {
+            setOpenForm(false);
+            setSelectedProject(null);
+            void loadProjects(search);
+          }}
+        />
+      </Modal>
+      <ConfirmDialog
+        open={openDelete}
+        title="Delete Project"
+        message={`Are you sure you want to delete "${selectedProject?.name}"?`}
+        confirmText="Delete"
+        cancelText="Cancel"
+        onCancel={() => {
+          setOpenDelete(false);
+          setSelectedProject(null);
+        }}
+        onConfirm={() => {
+          void handleDelete();
+        }}
+      />
     </div>
   );
 };

@@ -3,10 +3,7 @@ interface SpinnerProps {
   className?: string;
 }
 
-export const Spinner = ({
-  size = 20,
-  className = "",
-}: SpinnerProps) => {
+const Spinner = ({ size = 20, className = "" }: SpinnerProps) => {
   return (
     <div
       className={`inline-block animate-spin rounded-full border-2 border-current border-t-transparent ${className}`}
@@ -19,3 +16,5 @@ export const Spinner = ({
     />
   );
 };
+
+export default Spinner;

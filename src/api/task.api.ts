@@ -6,8 +6,7 @@ import type {
   ApiResponse,
   Task,
   GetTasksRequest,
-  CreateTaskRequest,
-  UpdateTaskRequest,
+  SaveTaskRequest,
   ChangeTaskStatusRequest,
 } from "@/types";
 
@@ -22,11 +21,11 @@ const TaskApi = {
     return api.get<ApiResponse<Task>>(API_ENDPOINTS.TASKS.BY_ID(id));
   },
 
-  create: (data: CreateTaskRequest) => {
+  create: (data: SaveTaskRequest) => {
     return api.post<ApiResponse<Task>>(API_ENDPOINTS.TASKS.CREATE, data);
   },
 
-  update: (id: number | string, data: UpdateTaskRequest) => {
+  update: (id: number | string, data: SaveTaskRequest) => {
     return api.put<ApiResponse<Task>>(API_ENDPOINTS.TASKS.UPDATE(id), data);
   },
 

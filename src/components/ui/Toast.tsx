@@ -1,6 +1,6 @@
 import { X } from "lucide-react";
 
-export type ToastType = "success" | "error" | "warning" | "info";
+import type { ToastType } from "@/types";
 
 interface ToastProps {
   message: string;
@@ -15,7 +15,7 @@ const colors = {
   info: "bg-blue-600",
 };
 
-export const Toast = ({ message, type, onClose }: ToastProps) => {
+const Toast = ({ message, type, onClose }: ToastProps) => {
   return (
     <div
       className={`
@@ -39,3 +39,5 @@ export const Toast = ({ message, type, onClose }: ToastProps) => {
     </div>
   );
 };
+
+export default Toast;

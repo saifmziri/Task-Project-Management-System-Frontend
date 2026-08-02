@@ -3,8 +3,7 @@ import TaskApi from "@/api/task.api";
 import type {
   Task,
   GetTasksRequest,
-  CreateTaskRequest,
-  UpdateTaskRequest,
+  SaveTaskRequest,
   ChangeTaskStatusRequest,
 } from "@/types";
 
@@ -21,13 +20,13 @@ class TaskService {
     return response.data.data;
   }
 
-  async create(data: CreateTaskRequest): Promise<Task> {
+  async create(data: SaveTaskRequest): Promise<Task> {
     const response = await TaskApi.create(data);
 
     return response.data.data;
   }
 
-  async update(id: number | string, data: UpdateTaskRequest): Promise<Task> {
+  async update(id: number | string, data: SaveTaskRequest): Promise<Task> {
     const response = await TaskApi.update(id, data);
 
     return response.data.data;

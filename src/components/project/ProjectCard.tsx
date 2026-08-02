@@ -1,13 +1,23 @@
-import { CalendarDays, ArrowRight } from "lucide-react";
+import { CalendarDays, ArrowRight, Pencil, Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
+
+import { Button } from "@/components/ui";
 
 import type { Project } from "@/types";
 
 interface ProjectCardProps {
   project: Project;
+  isAdmin: boolean;
+  onEdit: (project: Project) => void;
+  onDelete: (project: Project) => void;
 }
 
-const ProjectCard = ({ project }: ProjectCardProps) => {
+const ProjectCard = ({
+  project,
+  isAdmin,
+  onEdit,
+  onDelete,
+}: ProjectCardProps) => {
   return (
     <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md">
       <div className="mb-4">
@@ -29,14 +39,33 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
           </span>
         </div>
       </div>
+      <div className="mt-6 flex items-center justify-between">
+        <Link
+          to={`/projects/${project.id}`}
+          className="inline-flex items-center gap-2 font-medium text-slate-900 transition-colors hover:text-slate-700"
+        >
+          View Project
+          <ArrowRight size={18} />
+        </Link>
 
-      <Link
-        to={`/projects/${project.id}`}
-        className="mt-6 inline-flex items-center gap-2 font-medium text-slate-900 transition-colors hover:text-slate-700"
-      >
-        View Project
-        <ArrowRight size={18} />
-      </Link>
+        {isAdmin && (
+          <div className="flex gap-2">
+            <Button
+              onClick={() => onEdit(project)}
+              className="bg-blue-600 text-white hover:bg-blue-700"
+            >
+              <Pencil size={16} />
+            </Button>
+
+            <Button
+              onClick={() => onDelete(project)}
+              className="bg-red-600 text-white hover:bg-red-700"
+            >
+              <Trash2 size={16} />
+            </Button>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

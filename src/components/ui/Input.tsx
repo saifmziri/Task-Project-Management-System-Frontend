@@ -1,8 +1,4 @@
-import {
-  forwardRef,
-  type InputHTMLAttributes,
-  type ReactNode,
-} from "react";
+import { forwardRef, type InputHTMLAttributes, type ReactNode } from "react";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -11,7 +7,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   startAdornment?: ReactNode;
 }
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(
+const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     {
       label,
@@ -22,7 +18,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       endAdornment,
       ...props
     },
-    ref
+    ref,
   ) => {
     return (
       <div className="w-full">
@@ -66,14 +62,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           )}
         </div>
 
-        {error && (
-          <p className="mt-1 text-sm text-red-500">
-            {error}
-          </p>
-        )}
+        {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
       </div>
     );
-  }
+  },
 );
 
 Input.displayName = "Input";
+
+export default Input;

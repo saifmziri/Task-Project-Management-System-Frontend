@@ -14,16 +14,7 @@ export interface Task {
   updated_at?: string;
 }
 
-export interface CreateTaskRequest {
-  task_name: string;
-  project_id: number;
-  user_id: number;
-  status: TaskStatus;
-  priority: TaskPriority;
-  due_date: string;
-}
-
-export interface UpdateTaskRequest {
+export interface SaveTaskRequest {
   task_name: string;
   project_id: number;
   user_id: number;

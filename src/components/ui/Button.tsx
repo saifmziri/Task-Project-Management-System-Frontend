@@ -6,7 +6,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean;
 }
 
-export const Button = ({
+const Button = ({
   children,
   loading = false,
   disabled,
@@ -35,3 +35,5 @@ export const Button = ({
     </button>
   );
 };
+
+export default Button;

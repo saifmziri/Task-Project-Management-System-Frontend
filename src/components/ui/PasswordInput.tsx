@@ -13,11 +13,7 @@ interface PasswordInputProps extends Omit<
   error?: string;
 }
 
-export const PasswordInput = ({
-  label,
-  error,
-  ...props
-}: PasswordInputProps) => {
+const PasswordInput = ({ label, error, ...props }: PasswordInputProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -38,3 +34,5 @@ export const PasswordInput = ({
     />
   );
 };
+
+export default PasswordInput;
