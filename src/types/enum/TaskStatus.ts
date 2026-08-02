@@ -1,5 +1,5 @@
 export const TaskStatus = {
-  pending: "pending",
+  in_progress: "in_progress",
   completed: "completed",
   canceled: "canceled",
 } as const;

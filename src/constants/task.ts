@@ -2,9 +2,9 @@ import { TaskPriority } from "@/types/enum/TaskPriority";
 import { TaskStatus } from "@/types/enum/TaskStatus";
 
 export const TASK_STATUS = {
-  [TaskStatus.pending]: {
-    label: "Pending",
-    className: "bg-yellow-100 text-yellow-700",
+  [TaskStatus.in_progress]: {
+    label: "In Progress",
+    className: "bg-blue-100 text-blue-700",
   },
 
   [TaskStatus.completed]: {

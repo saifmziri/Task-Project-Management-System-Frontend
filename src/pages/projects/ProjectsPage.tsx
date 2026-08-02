@@ -57,6 +57,7 @@ const ProjectsPage = () => {
     });
 
     if (!success) {
+      setOpenDelete(false);
       return;
     }
 

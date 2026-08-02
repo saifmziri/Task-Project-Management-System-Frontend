@@ -41,5 +41,4 @@ export interface resetPasswordRequest {
   token: string;
   password: string;
   password_confirmation: string;
-  email: string;
 }

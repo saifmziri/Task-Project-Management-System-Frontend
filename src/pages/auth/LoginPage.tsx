@@ -39,7 +39,7 @@ const LoginPage = () => {
 
       showToast("Login successfully.", "success");
 
-      navigate("/");
+      navigate("/dashboard");
     });
 
     if (!success) return;
@@ -76,7 +76,7 @@ const LoginPage = () => {
             </svg>
           </div>
           <span className="text-[19px] font-semibold tracking-tight text-white">
-            Tally
+            Wandly
           </span>
         </div>
 
@@ -94,7 +94,7 @@ const LoginPage = () => {
         </div>
 
         <p className="relative text-[12.5px] text-slate-500">
-          &copy; {new Date().getFullYear()} Tally, Inc.
+          &copy; {new Date().getFullYear()} Wandly, Inc.
         </p>
       </div>
 

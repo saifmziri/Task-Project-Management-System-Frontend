@@ -6,7 +6,6 @@ const USER_KEY = "user";
 export const CurrentUserService = {
   getUser(): User | null {
     const user = localStorage.getItem(USER_KEY);
-    console.log(localStorage);
 
     return user ? JSON.parse(user) : null;
   },

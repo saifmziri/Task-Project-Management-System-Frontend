@@ -1,15 +1,12 @@
-import { CalendarDays, Pencil } from "lucide-react";
-
-import { Button } from "@/components/ui";
+import { CalendarDays } from "lucide-react";
 
 import type { Project } from "@/types";
 
 interface ProjectHeaderProps {
   project: Project;
-  isAdmin: boolean;
 }
 
-const ProjectHeader = ({ project, isAdmin }: ProjectHeaderProps) => {
+const ProjectHeader = ({ project }: ProjectHeaderProps) => {
   return (
     <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
       <div className="flex items-start justify-between">
@@ -18,13 +15,6 @@ const ProjectHeader = ({ project, isAdmin }: ProjectHeaderProps) => {
 
           <p className="mt-2 text-slate-500">{project.description}</p>
         </div>
-
-        {isAdmin && (
-          <Button className="bg-slate-900 text-white hover:bg-slate-800">
-            <Pencil size={18} />
-            Edit
-          </Button>
-        )}
       </div>
 
       <div className="mt-6 flex gap-8">

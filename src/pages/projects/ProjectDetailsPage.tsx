@@ -91,7 +91,7 @@ const ProjectDetailsPage = () => {
 
   return (
     <div className="space-y-8 p-8">
-      <ProjectHeader project={project} isAdmin={isAdmin} />
+      <ProjectHeader project={project}/>
 
       <section className="space-y-6">
         <div className="flex items-center justify-between">
