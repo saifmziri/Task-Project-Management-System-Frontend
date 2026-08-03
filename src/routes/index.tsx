@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 
 import AppLayout from "@/layouts/AppLayout";
 
@@ -10,10 +10,13 @@ import ForgotPasswordPage from "@/pages/auth/ForgotPasswordPage";
 import ResetPasswordPage from "@/pages/auth/ResetPasswordPage";
 import ProjectsPage from "@/pages/projects/ProjectsPage";
 import ProjectDetailsPage from "@/pages/projects/ProjectDetailsPage";
+import UsersPage from "@/pages/users/UsersPage";
+import TasksPage from "@/pages/tasks/TasksPage";
 
 import DashboardPage from "@/pages/dashboard/DashboardPage";
 
 import NotFoundPage from "@/pages/NotFoundPage";
+import { TokenService } from "@/services/token.service";
 
 export const router = createBrowserRouter([
   {
@@ -59,6 +62,23 @@ export const router = createBrowserRouter([
       {
         path: "/projects/:id",
         element: <ProjectDetailsPage />,
+      },
+      {
+        path: "/users",
+        element: <UsersPage />,
+      },
+      {
+        path: "/tasks",
+        element: <TasksPage />,
+      },
+      {
+        path: "/",
+        element: (
+          <Navigate
+            to={TokenService.getToken() ? "/dashboard" : "/login"}
+            replace
+          />
+        ),
       },
     ],
   },

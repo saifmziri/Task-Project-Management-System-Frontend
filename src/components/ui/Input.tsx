@@ -25,7 +25,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={id}
-            className="mb-2 block text-sm font-medium text-gray-700"
+            className="mb-2 block text-sm font-medium text-slate-700"
           >
             {label}
           </label>
@@ -33,7 +33,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
         <div className="relative">
           {startAdornment && (
-            <div className="absolute left-3 top-1/2 -translate-y-1/2">
+            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
               {startAdornment}
             </div>
           )}
@@ -42,13 +42,16 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             id={id}
             className={`
-              w-full rounded-lg border py-2 outline-none transition
-              ${startAdornment ? "pl-10" : "pl-3"}
-              ${endAdornment ? "pr-10" : "pr-3"}
+              w-full rounded-lg border bg-white py-2.5 text-[14.5px] text-slate-900
+              outline-none transition-all duration-150
+              placeholder:text-slate-400
+              disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400
+              ${startAdornment ? "pl-10" : "pl-3.5"}
+              ${endAdornment ? "pr-10" : "pr-3.5"}
               ${
                 error
-                  ? "border-red-500 focus:border-red-500"
-                  : "border-gray-300 focus:border-blue-500"
+                  ? "border-rose-400 focus:border-rose-500 focus:ring-4 focus:ring-rose-500/10"
+                  : "border-slate-300 focus:border-navy-900 focus:ring-4 focus:ring-navy-900/5"
               }
               ${className}
             `}
@@ -62,7 +65,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           )}
         </div>
 
-        {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
+        {error && (
+          <p className="mt-1.5 text-[13px] text-rose-600">{error}</p>
+        )}
       </div>
     );
   },

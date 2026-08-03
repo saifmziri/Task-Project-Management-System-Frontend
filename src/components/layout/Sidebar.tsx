@@ -45,68 +45,75 @@ const Sidebar = () => {
     });
   };
 
+  const navLinkClass = ({ isActive }: { isActive: boolean }) =>
+    `flex items-center gap-3 rounded-lg px-3 py-2.5 text-[14.5px] font-medium transition-colors duration-150 ${
+      isActive
+        ? "bg-brass-500/15 text-brass-300"
+        : "text-slate-400 hover:bg-white/5 hover:text-white"
+    }`;
+
   return (
     <>
-      <aside className="fixed left-0 top-0 z-50 flex h-screen w-64 flex-col border-r border-slate-200 bg-white">
+      <aside className="fixed left-0 top-0 z-50 flex h-screen w-64 flex-col bg-linear-to-b from-navy-900 to-navy-950">
         {/* Logo */}
-        <div className="flex h-16 items-center border-b border-slate-200 px-6">
-          <h1 className="text-xl font-bold text-slate-900">Tally</h1>
+        <div className="flex h-16 items-center gap-2.5 border-b border-white/10 px-6">
+          <div className="flex h-8 w-8 items-center justify-center rounded-md bg-linear-to-br from-brass-300 to-brass-500 shadow-[0_2px_8px_-1px_rgba(189,143,60,0.5)]">
+            <svg
+              viewBox="0 0 20 20"
+              className="h-4.5 w-4.5"
+              fill="none"
+              stroke="#0b1220"
+              strokeWidth="2.25"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M4 10.5l4 4 8-9" />
+            </svg>
+          </div>
+          <h1 className="text-[19px] font-semibold tracking-tight text-white">
+            Wandly
+          </h1>
         </div>
 
         {/* Navigation */}
         <nav className="flex-1 space-y-1 p-4">
-          <NavLink
-            to="/"
-            className="flex items-center gap-3 rounded-lg px-3 py-2 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
-          >
-            <LayoutDashboard size={20} />
+          <NavLink to="/Dashboard" end className={navLinkClass}>
+            <LayoutDashboard size={19} />
             <span>Dashboard</span>
           </NavLink>
 
-          <NavLink
-            to="/projects"
-            className="flex items-center gap-3 rounded-lg px-3 py-2 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
-          >
-            <FolderKanban size={20} />
+          <NavLink to="/projects" className={navLinkClass}>
+            <FolderKanban size={19} />
             <span>Projects</span>
           </NavLink>
 
           {isAdmin && (
-            <NavLink
-              to="/tasks"
-              className="flex items-center gap-3 rounded-lg px-3 py-2 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
-            >
-              <SquareCheckBig size={20} />
+            <NavLink to="/tasks" className={navLinkClass}>
+              <SquareCheckBig size={19} />
               <span>Tasks</span>
             </NavLink>
           )}
 
           {isAdmin && (
-            <NavLink
-              to="/users"
-              className="flex items-center gap-3 rounded-lg px-3 py-2 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
-            >
-              <Users size={20} />
+            <NavLink to="/users" className={navLinkClass}>
+              <Users size={19} />
               <span>Users</span>
             </NavLink>
           )}
 
-          <NavLink
-            to="/profile"
-            className="flex items-center gap-3 rounded-lg px-3 py-2 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
-          >
-            <User size={20} />
+          <NavLink to="/profile" className={navLinkClass}>
+            <User size={19} />
             <span>Profile</span>
           </NavLink>
         </nav>
 
         {/* Footer */}
-        <div className="border-t border-slate-200 p-4">
+        <div className="border-t border-white/10 p-4">
           <Button
             onClick={() => setOpenLogout(true)}
-            className="flex w-full items-center justify-start gap-3 bg-transparent px-3 py-2 text-slate-600 hover:bg-red-50 hover:text-red-600"
+            className="flex w-full items-center justify-start gap-3 bg-transparent px-3 py-2.5 text-[14.5px] font-medium text-slate-400 hover:bg-rose-500/10 hover:text-rose-400"
           >
-            <LogOut size={20} />
+            <LogOut size={19} />
             Logout
           </Button>
         </div>

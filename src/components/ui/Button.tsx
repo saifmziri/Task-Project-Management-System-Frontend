@@ -23,9 +23,16 @@ const Button = ({
         px-4
         py-2
         font-medium
-        transition-colors
+        transition-all
+        duration-150
+        active:scale-[0.98]
+        focus-visible:outline-none
+        focus-visible:ring-2
+        focus-visible:ring-brass-400
+        focus-visible:ring-offset-2
         disabled:cursor-not-allowed
         disabled:opacity-60
+        disabled:active:scale-100
         ${className}
       `}
     >

@@ -49,4 +49,5 @@ export const API_ENDPOINTS = {
 
     CHANGE_STATUS: (id: number | string) => `/tasks/${id}/status`,
   },
+  DASHBOARD: "/dashboard",
 } as const;

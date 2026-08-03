@@ -17,6 +17,8 @@ interface ConfirmDialogProps {
 
   danger?: boolean;
 
+  confirmVariant?: "danger" | "success";
+
   onConfirm: () => void;
 
   onCancel: () => void;
@@ -30,17 +32,27 @@ const ConfirmDialog = ({
   confirmText = "Confirm",
   cancelText = "Cancel",
   danger = true,
+  confirmVariant,
   onConfirm,
   onCancel,
 }: ConfirmDialogProps) => {
+  const variant = confirmVariant ?? (danger ? "danger" : "default");
+
+  const confirmClassName =
+    variant === "danger"
+      ? "bg-rose-600 text-white hover:bg-rose-700 focus-visible:ring-rose-400"
+      : variant === "success"
+        ? "bg-emerald-600 text-white hover:bg-emerald-700 focus-visible:ring-emerald-400"
+        : "bg-linear-to-b from-navy-800 to-navy-900 text-white hover:from-navy-700 hover:to-navy-800";
+
   return (
     <Modal open={open} title={title} size="sm" onClose={onCancel}>
-      <p className="text-sm text-slate-600">{message}</p>
+      <p className="text-[14.5px] leading-relaxed text-slate-600">{message}</p>
 
       <div className="mt-6 flex justify-end gap-3">
         <Button
           onClick={onCancel}
-          className="border border-slate-300 bg-white text-slate-700 hover:bg-slate-100"
+          className="border border-slate-300 bg-white text-slate-700 hover:bg-slate-50"
         >
           {cancelText}
         </Button>
@@ -48,11 +60,7 @@ const ConfirmDialog = ({
         <Button
           loading={loading}
           onClick={onConfirm}
-          className={
-            danger
-              ? "bg-red-600 text-white hover:bg-red-700"
-              : "bg-slate-900 text-white hover:bg-slate-800"
-          }
+          className={confirmClassName}
         >
           {confirmText}
         </Button>

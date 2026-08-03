@@ -5,7 +5,7 @@ import type { Project, GetProjectsParams, SaveProjectRequest } from "@/types";
 class ProjectService {
   async getAll(params?: GetProjectsParams): Promise<Project[]> {
     const response = await ProjectApi.getAll(params);
-
+console.log("ProjectService.getAll response:", response); // Debugging line
     return response.data.data;
   }
 

@@ -5,3 +5,6 @@ export * from "./auth.types";
 export * from "./common.types";
 export * from "./api.types";
 export * from "./ToastType";
+export * from "./enum/TaskStatus";
+export * from "./enum/TaskPriority";
+export * from "./dashboard.types";

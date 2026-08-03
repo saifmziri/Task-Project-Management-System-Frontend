@@ -23,14 +23,18 @@ const Modal = ({ open, title, children, onClose, size = "md" }: ModalProps) => {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <div className={`w-full rounded-xl bg-white shadow-xl ${sizes[size]}`}>
-        <div className="flex items-center justify-between border-b border-slate-200 p-5">
-          <h2 className="text-xl font-semibold text-slate-900">{title}</h2>
+    <div className="animate-overlay-in fixed inset-0 z-50 flex items-center justify-center bg-navy-950/50 p-4 backdrop-blur-sm">
+      <div
+        className={`animate-modal-in w-full rounded-2xl border border-slate-200/80 bg-white shadow-2xl shadow-navy-900/20 ${sizes[size]}`}
+      >
+        <div className="flex items-center justify-between border-b border-slate-100 p-5">
+          <h2 className="text-navy-900 text-lg font-semibold tracking-tight">
+            {title}
+          </h2>
 
           <button
             onClick={onClose}
-            className="rounded-lg p-2 transition hover:bg-slate-100"
+            className="rounded-lg p-2 text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900"
           >
             <X size={20} />
           </button>

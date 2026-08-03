@@ -9,3 +9,4 @@ export { default as Spinner } from "./Spinner";
 export { default as Input } from "./Input";
 export { default as Modal } from "./Modal";
 export { default as ConfirmDialog } from "./ConfirmDialog";
+export { default as Combobox } from "./Combobox";
