@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 
 import { AlertCircle } from "lucide-react";
 
-import { Spinner } from "@/components/ui";
+import DashboardSkeleton from "@/components/skeletons/DashboardSkeleton";
 
 import {
   StatsGrid,
@@ -41,12 +41,7 @@ const DashboardPage = () => {
   }, [loadDashboard]);
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center gap-2.5 py-20 text-[14.5px] text-slate-500">
-        <Spinner size={18} className="text-navy-900" />
-        Loading dashboard...
-      </div>
-    );
+    return <DashboardSkeleton />;
   }
 
   if (serverError) {

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 
 import { Search, Plus, AlertCircle, FolderKanban } from "lucide-react";
 
-import { Button, Input, Modal, Spinner } from "@/components/ui";
+import { Button, Input, Modal } from "@/components/ui";
 import ProjectCard from "@/components/project/ProjectCard";
 import ProjectForm from "@/components/project/ProjectForm";
 
@@ -11,7 +11,7 @@ import { CurrentUserService } from "@/services/current-user.service";
 import { useToast } from "@/context/ToastContext";
 import type { Project } from "@/types";
 import { ConfirmDialog } from "@/components/ui";
-
+import ProjectsSkeleton from "@/components/skeletons/ProjectsSkeleton";
 import { useApiRequest } from "@/hooks/useApiRequest";
 
 const ProjectsPage = () => {
@@ -121,10 +121,7 @@ const ProjectsPage = () => {
 
       {/* Content */}
       {loading ? (
-        <div className="flex items-center justify-center gap-2.5 py-20 text-[14.5px] text-slate-500">
-          <Spinner size={18} className="text-navy-900" />
-          Loading projects...
-        </div>
+        <ProjectsSkeleton />
       ) : projects.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50/50 py-20 text-center">
           <div className="brass-ring mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl">

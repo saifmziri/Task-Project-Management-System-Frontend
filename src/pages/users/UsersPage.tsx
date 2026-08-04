@@ -2,12 +2,14 @@ import { useCallback, useEffect, useState } from "react";
 
 import { Search, AlertCircle, Plus } from "lucide-react";
 
-import { Button, Input, Modal, Spinner } from "@/components/ui";
+import { Button, Input, Modal } from "@/components/ui";
 import { ConfirmDialog } from "@/components/ui";
 import UserList from "@/components/user/UserList";
 import UserForm from "@/components/user/UserForm";
 
 import { useNavigate } from "react-router-dom";
+
+import UsersSkeleton from "@/components/skeletons/UsersSkeleton";
 
 import UserService from "@/services/user.service";
 import { CurrentUserService } from "@/services/current-user.service";
@@ -119,10 +121,7 @@ const UsersPage = () => {
 
       {/* Content */}
       {loading ? (
-        <div className="flex items-center justify-center gap-2.5 py-20 text-[14.5px] text-slate-500">
-          <Spinner size={18} className="text-navy-900" />
-          Loading users...
-        </div>
+        <UsersSkeleton />
       ) : (
         <UserList
           users={users}

@@ -5,14 +5,15 @@ import { Search, Plus, AlertCircle, FolderX } from "lucide-react";
 
 import ProjectHeader from "@/components/project/ProjectHeader";
 import TaskList from "@/components/task/TaskList";
-import { Button, Input, Spinner, Modal, ConfirmDialog } from "@/components/ui";
+import { Button, Input, Modal, ConfirmDialog } from "@/components/ui";
 
+import ProjectDetailsSkeleton from "@/components/skeletons/ProjectDetailsSkeleton";
 import ProjectService from "@/services/project.service";
 import TaskService from "@/services/task.service";
 import { CurrentUserService } from "@/services/current-user.service";
+import TaskStatusForm from "@/components/task/TaskStatusForm";
 
 import type { Project, Task, User } from "@/types";
-import {} from "@/components/ui";
 
 import UserService from "@/services/user.service";
 import { useToast } from "@/context/ToastContext";
@@ -34,6 +35,7 @@ const ProjectDetailsPage = () => {
 
   const [openForm, setOpenForm] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
+  const [openStatus, setOpenStatus] = useState(false);
 
   const { showToast } = useToast();
 
@@ -65,8 +67,9 @@ const ProjectDetailsPage = () => {
   }, [execute]);
 
   useEffect(() => {
+    if (!isAdmin) return;
     void loadUsers();
-  }, [loadUsers]);
+  }, [loadUsers, isAdmin]);
 
   const loadProject = useCallback(async () => {
     if (!id) return;
@@ -117,12 +120,7 @@ const ProjectDetailsPage = () => {
   }, [search, loadTasks]);
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center gap-2.5 p-16 text-[14.5px] text-slate-500">
-        <Spinner size={18} className="text-navy-900" />
-        Loading project...
-      </div>
-    );
+    return <ProjectDetailsSkeleton />;
   }
 
   if (serverError) {
@@ -193,8 +191,13 @@ const ProjectDetailsPage = () => {
             setSelectedTask(task);
             setOpenDelete(true);
           }}
+          onChangeStatus={(task) => {
+            setSelectedTask(task);
+            setOpenStatus(true);
+          }}
         />
       </section>
+      {/* Create / Update Task */}
       <Modal
         open={openForm}
         onClose={() => {
@@ -218,6 +221,32 @@ const ProjectDetailsPage = () => {
             void loadTasks(search);
           }}
         />
+      </Modal>
+
+      {/* Update Task Status */}
+      <Modal
+        open={openStatus}
+        onClose={() => {
+          setOpenStatus(false);
+          setSelectedTask(null);
+        }}
+        title="Update Task Status"
+      >
+        {selectedTask && (
+          <TaskStatusForm
+            task={selectedTask}
+            onCancel={() => {
+              setOpenStatus(false);
+              setSelectedTask(null);
+            }}
+            onSuccess={() => {
+              setOpenStatus(false);
+              setSelectedTask(null);
+
+              void loadTasks(search);
+            }}
+          />
+        )}
       </Modal>
       <ConfirmDialog
         open={openDelete}

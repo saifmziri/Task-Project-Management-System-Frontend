@@ -9,9 +9,16 @@ interface TaskListProps {
   isAdmin: boolean;
   onEdit?: (task: Task) => void;
   onDelete?: (task: Task) => void;
+  onChangeStatus?: (task: Task) => void;
 }
 
-const TaskList = ({ tasks, isAdmin, onEdit, onDelete }: TaskListProps) => {
+const TaskList = ({
+  tasks,
+  isAdmin,
+  onEdit,
+  onDelete,
+  onChangeStatus,
+}: TaskListProps) => {
   if (tasks.length === 0) {
     return (
       <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50/50 py-16 text-center">
@@ -43,6 +50,7 @@ const TaskList = ({ tasks, isAdmin, onEdit, onDelete }: TaskListProps) => {
           isAdmin={isAdmin}
           onEdit={onEdit}
           onDelete={onDelete}
+          onChangeStatus={onChangeStatus}
         />
       ))}
     </div>

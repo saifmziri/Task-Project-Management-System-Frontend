@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 
 import { Search, Plus, AlertCircle } from "lucide-react";
 
-import { Button, ConfirmDialog, Input, Modal, Spinner } from "@/components/ui";
+import { Button, ConfirmDialog, Input, Modal } from "@/components/ui";
 
 import TaskForm from "@/components/task/TaskForm";
 import TaskList from "@/components/task/TaskList";
@@ -11,6 +11,8 @@ import TaskService from "@/services/task.service";
 import ProjectService from "@/services/project.service";
 import UserService from "@/services/user.service";
 import { CurrentUserService } from "@/services/current-user.service";
+
+import TasksSkeleton from "@/components/skeletons/TasksSkeleton";
 
 import { useApiRequest } from "@/hooks/useApiRequest";
 import { useToast } from "@/context/ToastContext";
@@ -133,10 +135,7 @@ const TasksPage = () => {
       )}
 
       {loading ? (
-        <div className="flex items-center justify-center gap-2.5 py-20 text-[14.5px] text-slate-500">
-          <Spinner size={18} className="text-navy-900" />
-          Loading tasks...
-        </div>
+        <TasksSkeleton />
       ) : (
         <TaskList
           tasks={tasks}

@@ -5,17 +5,16 @@ import AppLayout from "@/layouts/AppLayout";
 import LoginPage from "@/pages/auth/LoginPage";
 import RegisterPage from "@/pages/auth/RegisterPage";
 import VerifyEmailPage from "@/pages/auth/VerifyEmailPage";
-import ChangePasswordPage from "@/pages/auth/ChangePasswordPage";
 import ForgotPasswordPage from "@/pages/auth/ForgotPasswordPage";
 import ResetPasswordPage from "@/pages/auth/ResetPasswordPage";
 import ProjectsPage from "@/pages/projects/ProjectsPage";
 import ProjectDetailsPage from "@/pages/projects/ProjectDetailsPage";
 import UsersPage from "@/pages/users/UsersPage";
 import TasksPage from "@/pages/tasks/TasksPage";
-
 import DashboardPage from "@/pages/dashboard/DashboardPage";
-
 import NotFoundPage from "@/pages/NotFoundPage";
+import ProfilePage from "@/pages/profile/ProfilePage";
+
 import { TokenService } from "@/services/token.service";
 
 export const router = createBrowserRouter([
@@ -32,10 +31,6 @@ export const router = createBrowserRouter([
       {
         path: "/verify-email",
         element: <VerifyEmailPage />,
-      },
-      {
-        path: "/change-password",
-        element: <ChangePasswordPage />,
       },
       {
         path: "/forgot-password",
@@ -70,6 +65,10 @@ export const router = createBrowserRouter([
       {
         path: "/tasks",
         element: <TasksPage />,
+      },
+      {
+        path: "/profile",
+        element: <ProfilePage />,
       },
       {
         path: "/",

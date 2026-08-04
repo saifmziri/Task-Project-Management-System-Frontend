@@ -13,9 +13,16 @@ interface TaskCardProps {
   isAdmin: boolean;
   onEdit?: (task: Task) => void;
   onDelete?: (task: Task) => void;
+  onChangeStatus?: (task: Task) => void;
 }
 
-const TaskCard = ({ task, isAdmin, onEdit, onDelete }: TaskCardProps) => {
+const TaskCard = ({
+  task,
+  isAdmin,
+  onEdit,
+  onDelete,
+  onChangeStatus,
+}: TaskCardProps) => {
   const status = TASK_STATUS[task.status];
   const priority = TASK_PRIORITY[task.priority];
 
@@ -82,7 +89,10 @@ const TaskCard = ({ task, isAdmin, onEdit, onDelete }: TaskCardProps) => {
             </Button>
           </>
         ) : (
-          <Button className="border border-slate-300 bg-white text-slate-700 hover:border-brass-400 hover:bg-brass-50 hover:text-brass-700 focus-visible:ring-offset-0">
+          <Button
+            onClick={() => onChangeStatus?.(task)}
+            className="border border-slate-300 bg-white text-slate-700 hover:border-brass-400 hover:bg-brass-50 hover:text-brass-700 focus-visible:ring-offset-0"
+          >
             Change Status
           </Button>
         )}
