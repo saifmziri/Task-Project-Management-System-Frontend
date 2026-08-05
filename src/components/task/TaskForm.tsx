@@ -4,6 +4,7 @@ import { useForm, Controller } from "react-hook-form";
 import { Button, Input, Select } from "@/components/ui";
 
 import TaskService from "@/services/task.service";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useApiRequest } from "@/hooks/useApiRequest";
 import { useToast } from "@/context/ToastContext";
@@ -12,12 +13,14 @@ import {
   TaskPriority,
   TaskStatus,
   type Task,
-  type SaveTaskRequest,
   type Project,
   type User,
 } from "@/types";
 
 import { Combobox } from "../ui";
+
+import { TaskFormSchema, type TaskFormData } from "@/schemas";
+import { TASK_PRIORITY_OPTIONS, TASK_STATUS_OPTIONS } from "@/constants/options";
 
 interface TaskFormProps {
   task?: Task;
@@ -38,14 +41,15 @@ const TaskForm = ({
 }: TaskFormProps) => {
   const { showToast } = useToast();
   const { serverError, execute } = useApiRequest();
-  console.log(projectId);
+
   const {
     control,
     register,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm<SaveTaskRequest>({
+  } = useForm<TaskFormData>({
+    resolver: zodResolver(TaskFormSchema),
     defaultValues: {
       task_name: "",
       project_id: projectId,
@@ -80,7 +84,7 @@ const TaskForm = ({
     });
   }, [task, projectId, reset]);
 
-  const onSubmit = async (data: SaveTaskRequest) => {
+  const onSubmit = async (data: TaskFormData) => {
     const success = await execute(async () => {
       if (task) {
         await TaskService.update(task.id, data);
@@ -109,17 +113,12 @@ const TaskForm = ({
       <Input
         placeholder="Task name"
         error={errors.task_name?.message}
-        {...register("task_name", {
-          required: "Task name is required.",
-        })}
+        {...register("task_name")}
       />
       {!projectId && (
         <Controller
           name="project_id"
           control={control}
-          rules={{
-            validate: (value) => value > 0 || "Project is required.",
-          }}
           render={({ field }) => (
             <Combobox
               id="project_id"
@@ -140,9 +139,6 @@ const TaskForm = ({
       <Controller
         name="user_id"
         control={control}
-        rules={{
-          validate: (value) => value > 0 || "User is required.",
-        }}
         render={({ field }) => (
           <Combobox
             id="user_id"
@@ -164,20 +160,7 @@ const TaskForm = ({
           id="priority"
           label="Priority"
           error={errors.priority?.message}
-          options={[
-            {
-              value: TaskPriority.low,
-              label: "Low",
-            },
-            {
-              value: TaskPriority.medium,
-              label: "Medium",
-            },
-            {
-              value: TaskPriority.high,
-              label: "High",
-            },
-          ]}
+          options={TASK_PRIORITY_OPTIONS}
           {...register("priority")}
         />
 
@@ -185,31 +168,16 @@ const TaskForm = ({
           id="status"
           label="Status"
           error={errors.status?.message}
-          options={[
-            {
-              value: TaskStatus.in_progress,
-              label: "In Progress",
-            },
-            {
-              value: TaskStatus.completed,
-              label: "Completed",
-            },
-            {
-              value: TaskStatus.canceled,
-              label: "Canceled",
-            },
-          ]}
+          options={TASK_STATUS_OPTIONS}
           {...register("status")}
         />
       </div>
-
+        
       <Input
         type="date"
         label="Due Date"
         error={errors.due_date?.message}
-        {...register("due_date", {
-          required: "Due date is required.",
-        })}
+        {...register("due_date")}
       />
 
       <div className="flex justify-end gap-3 pt-2">

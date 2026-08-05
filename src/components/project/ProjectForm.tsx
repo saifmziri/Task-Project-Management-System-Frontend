@@ -3,9 +3,13 @@ import { useForm } from "react-hook-form";
 
 import { Button, Input, Textarea } from "@/components/ui";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import ProjectService from "@/services/project.service";
 
-import type { Project, SaveProjectRequest } from "@/types";
+import { projectSchema, type ProjectData } from "@/schemas";
+
+import type { Project } from "@/types";
 
 import { useApiRequest } from "@/hooks/useApiRequest";
 import { useToast } from "@/context/ToastContext";
@@ -26,7 +30,8 @@ const ProjectForm = ({ project, onSuccess, onCancel }: ProjectFormProps) => {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm<SaveProjectRequest>({
+  } = useForm<ProjectData>({
+    resolver: zodResolver(projectSchema),
     defaultValues: {
       name: "",
       description: "",
@@ -46,7 +51,7 @@ const ProjectForm = ({ project, onSuccess, onCancel }: ProjectFormProps) => {
     });
   }, [project, reset]);
 
-  const onSubmit = async (data: SaveProjectRequest) => {
+  const onSubmit = async (data: ProjectData) => {
     const success = await execute(async () => {
       if (project) {
         await ProjectService.update(project.id, data);
@@ -74,65 +79,35 @@ const ProjectForm = ({ project, onSuccess, onCancel }: ProjectFormProps) => {
         </div>
       )}
 
-      <div>
+      <Input
+        label="Project Name"
+        placeholder="Enter project name"
+        error={errors.name?.message}
+        {...register("name")}
+      />
+
+      <Textarea
+        label="Description"
+        rows={4}
+        placeholder="Enter project description"
+        error={errors.description?.message}
+        {...register("description")}
+      />
+
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <Input
-          placeholder="Project name"
-          {...register("name", {
-            required: "Project name is required.",
-          })}
+          type="date"
+          label="Start Date"
+          error={errors.start_date?.message}
+          {...register("start_date")}
         />
 
-        {errors.name && (
-          <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
-        )}
-      </div>
-
-      <div>
-        <Textarea
-          rows={4}
-          placeholder="Description"
-          {...register("description", {
-            required: "Description is required.",
-          })}
+        <Input
+          type="date"
+          label="Due Date"
+          error={errors.due_date?.message}
+          {...register("due_date")}
         />
-
-        {errors.description && (
-          <p className="mt-1 text-sm text-red-600">
-            {errors.description.message}
-          </p>
-        )}
-      </div>
-
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-          <Input
-            type="date"
-            {...register("start_date", {
-              required: "Start date is required.",
-            })}
-          />
-
-          {errors.start_date && (
-            <p className="mt-1 text-sm text-red-600">
-              {errors.start_date.message}
-            </p>
-          )}
-        </div>
-
-        <div>
-          <Input
-            type="date"
-            {...register("due_date", {
-              required: "Due date is required.",
-            })}
-          />
-
-          {errors.due_date && (
-            <p className="mt-1 text-sm text-red-600">
-              {errors.due_date.message}
-            </p>
-          )}
-        </div>
       </div>
 
       <div className="flex justify-end gap-3 pt-2">

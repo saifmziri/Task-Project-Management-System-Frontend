@@ -1,15 +1,15 @@
-import "./App.css";
-
-import { RouterProvider } from "react-router-dom";
-
+import { AuthProvider } from "./context/AuthContext";
 import { ToastProvider } from "./context/ToastContext";
+import { RouterProvider } from "react-router-dom";
 import { router } from "./routes";
 
 function App() {
   return (
-    <ToastProvider>
-      <RouterProvider router={router} />
-    </ToastProvider>
+    <AuthProvider>
+      <ToastProvider>
+        <RouterProvider router={router} />
+      </ToastProvider>
+    </AuthProvider>
   );
 }
 

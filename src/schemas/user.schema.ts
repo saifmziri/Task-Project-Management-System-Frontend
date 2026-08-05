@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const profileSchema = z.object({
+export const userSchema = z.object({
   full_name: z
     .string()
     .trim()
@@ -12,4 +12,4 @@ export const profileSchema = z.object({
   phone_number: z.string().min(10, "Phone number is too short.").max(20),
 });
 
-export type ProfileData = z.infer<typeof profileSchema>;
+export type userForm = z.infer<typeof userSchema>;

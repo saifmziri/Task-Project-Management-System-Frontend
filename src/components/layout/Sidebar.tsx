@@ -11,8 +11,7 @@ import {
 
 import { Button, ConfirmDialog } from "@/components/ui";
 
-import AuthService from "@/services/auth.service";
-import { CurrentUserService } from "@/services/current-user.service";
+import { useAuth } from "@/context/AuthContext";
 
 import { useToast } from "@/context/ToastContext";
 import { useApiRequest } from "@/hooks/useApiRequest";
@@ -23,13 +22,13 @@ const Sidebar = () => {
   const { showToast } = useToast();
   const { execute } = useApiRequest();
 
-  const isAdmin = CurrentUserService.isAdmin();
+  const { isAdmin, logout } = useAuth();
 
   const [openLogout, setOpenLogout] = useState(false);
 
   const handleLogout = async () => {
     const success = await execute(async () => {
-      await AuthService.logout();
+      await logout();
     });
 
     if (!success) {
@@ -37,7 +36,6 @@ const Sidebar = () => {
     }
 
     setOpenLogout(false);
-
     showToast("Logged out successfully.", "success");
 
     navigate("/login", {

@@ -9,6 +9,7 @@ import { useApiRequest } from "@/hooks/useApiRequest";
 import { useToast } from "@/context/ToastContext";
 
 import { TaskStatus, type Task } from "@/types";
+import { TASK_STATUS_OPTIONS } from "@/constants/options";
 
 interface TaskStatusFormProps {
   task: Task;
@@ -68,20 +69,7 @@ const TaskStatusForm = ({ task, onSuccess, onCancel }: TaskStatusFormProps) => {
         {...register("status", {
           required: "Status is required.",
         })}
-        options={[
-          {
-            value: TaskStatus.in_progress,
-            label: "In Progress",
-          },
-          {
-            value: TaskStatus.completed,
-            label: "Completed",
-          },
-          {
-            value: TaskStatus.canceled,
-            label: "Canceled",
-          },
-        ]}
+        options={TASK_STATUS_OPTIONS}
       />
 
       <div className="flex justify-end gap-3 pt-2">

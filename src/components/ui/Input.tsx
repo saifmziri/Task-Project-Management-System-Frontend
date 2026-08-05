@@ -41,13 +41,15 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           <input
             ref={ref}
             id={id}
+            aria-invalid={!!error}
+            aria-describedby={error ? `${id}-error` : undefined}
             className={`
               w-full rounded-lg border bg-white py-2.5 text-[14.5px] text-slate-900
               outline-none transition-all duration-150
               placeholder:text-slate-400
               disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400
               ${startAdornment ? "pl-10" : "pl-3.5"}
-              ${endAdornment ? "pr-10" : "pr-3.5"}
+              ${endAdornment ? "pr-12" : "pr-3.5"}
               ${
                 error
                   ? "border-rose-400 focus:border-rose-500 focus:ring-4 focus:ring-rose-500/10"
@@ -66,7 +68,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         </div>
 
         {error && (
-          <p className="mt-1.5 text-[13px] text-rose-600">{error}</p>
+          <p id={`${id}-error`} className="mt-1.5 text-[13px] text-rose-600">
+            {error}
+          </p>
         )}
       </div>
     );

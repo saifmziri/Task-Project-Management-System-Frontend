@@ -12,15 +12,16 @@ import { useNavigate } from "react-router-dom";
 import UsersSkeleton from "@/components/skeletons/UsersSkeleton";
 
 import UserService from "@/services/user.service";
-import { CurrentUserService } from "@/services/current-user.service";
 
 import { useApiRequest } from "@/hooks/useApiRequest";
 import { useToast } from "@/context/ToastContext";
 
 import type { User } from "@/types";
+import { useAuth } from "@/context/AuthContext";
 
 const UsersPage = () => {
   const navigate = useNavigate();
+  const { isAdmin } = useAuth();
 
   const [users, setUsers] = useState<User[]>([]);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
@@ -30,8 +31,6 @@ const UsersPage = () => {
 
   const [openForm, setOpenForm] = useState(false);
   const [openStatus, setOpenStatus] = useState(false);
-
-  const isAdmin = CurrentUserService.isAdmin();
 
   const { execute, serverError } = useApiRequest();
   const { showToast } = useToast();

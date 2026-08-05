@@ -15,6 +15,7 @@ import { registerSchema, type RegisterForm } from "../../schemas";
 
 import { useApiRequest } from "../../hooks/useApiRequest";
 import { useToast } from "../../context/ToastContext";
+import { ROLE_OPTIONS } from "@/constants/options";
 
 const RegisterPage = () => {
   const { showToast } = useToast();
@@ -111,20 +112,7 @@ const RegisterPage = () => {
             {...register("role_id", {
               valueAsNumber: true,
             })}
-            options={[
-              {
-                value: 0,
-                label: "Select role",
-              },
-              {
-                value: 1,
-                label: "Admin",
-              },
-              {
-                value: 2,
-                label: "Employee",
-              },
-            ]}
+            options={ROLE_OPTIONS}
           />
 
           <div className="h-px bg-linear-to-r from-transparent via-slate-200 to-transparent" />

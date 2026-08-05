@@ -5,10 +5,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Input, PasswordInput, Button, FormError } from "@/components/ui";
 
-import AuthService from "@/services/auth.service";
+import { loginSchema, type LoginForm } from "@/schemas";
 
-import { loginSchema } from "@/schemas";
-import type { LoginForm } from "@/schemas";
+import { useAuth } from "@/context/AuthContext";
 
 import { useApiRequest } from "@/hooks/useApiRequest";
 import { useToast } from "@/context/ToastContext";
@@ -17,6 +16,8 @@ import { Checkbox } from "@/components/ui";
 const LoginPage = () => {
   const navigate = useNavigate();
   const { serverError, execute } = useApiRequest();
+
+  const { login } = useAuth();
 
   const { showToast } = useToast();
 
@@ -35,7 +36,7 @@ const LoginPage = () => {
     const { rememberMe, ...loginRequest } = data;
 
     const success = await execute(async () => {
-      await AuthService.login(loginRequest, rememberMe);
+      await login(loginRequest, rememberMe);
 
       showToast("Login successfully.", "success");
 

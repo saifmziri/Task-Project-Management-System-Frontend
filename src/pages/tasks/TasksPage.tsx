@@ -10,8 +10,7 @@ import TaskList from "@/components/task/TaskList";
 import TaskService from "@/services/task.service";
 import ProjectService from "@/services/project.service";
 import UserService from "@/services/user.service";
-import { CurrentUserService } from "@/services/current-user.service";
-
+import { useAuth } from "@/context/AuthContext";
 import TasksSkeleton from "@/components/skeletons/TasksSkeleton";
 
 import { useApiRequest } from "@/hooks/useApiRequest";
@@ -32,7 +31,7 @@ const TasksPage = () => {
   const [openForm, setOpenForm] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
 
-  const isAdmin = CurrentUserService.isAdmin();
+  const { isAdmin } = useAuth();
 
   const { execute, serverError } = useApiRequest();
   const { showToast } = useToast();

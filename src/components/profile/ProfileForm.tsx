@@ -7,8 +7,10 @@ import UserService from "@/services/user.service";
 
 import { useApiRequest } from "@/hooks/useApiRequest";
 import { useToast } from "@/context/ToastContext";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-import type { User, UpdateUserRequest } from "@/types";
+import type { User } from "@/types";
+import { profileSchema, type ProfileData } from "@/schemas/profile.schema";
 
 interface ProfileFormProps {
   user: User;
@@ -24,7 +26,8 @@ const ProfileForm = ({ user, onSuccess }: ProfileFormProps) => {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm<UpdateUserRequest>({
+  } = useForm<ProfileData>({
+    resolver: zodResolver(profileSchema),
     defaultValues: {
       full_name: "",
       email: "",
@@ -40,7 +43,7 @@ const ProfileForm = ({ user, onSuccess }: ProfileFormProps) => {
     });
   }, [user, reset]);
 
-  const onSubmit = async (data: UpdateUserRequest) => {
+  const onSubmit = async (data: ProfileData) => {
     const success = await execute(async () => {
       await UserService.update(user.id, data);
 
@@ -60,9 +63,7 @@ const ProfileForm = ({ user, onSuccess }: ProfileFormProps) => {
         id="full_name"
         label="Full Name"
         error={errors.full_name?.message}
-        {...register("full_name", {
-          required: "Full name is required.",
-        })}
+        {...register("full_name")}
       />
 
       <Input
@@ -70,9 +71,7 @@ const ProfileForm = ({ user, onSuccess }: ProfileFormProps) => {
         type="email"
         label="Email"
         error={errors.email?.message}
-        {...register("email", {
-          required: "Email is required.",
-        })}
+        {...register("email")}
       />
 
       <Input

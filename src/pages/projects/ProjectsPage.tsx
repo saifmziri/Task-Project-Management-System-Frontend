@@ -7,12 +7,12 @@ import ProjectCard from "@/components/project/ProjectCard";
 import ProjectForm from "@/components/project/ProjectForm";
 
 import ProjectService from "@/services/project.service";
-import { CurrentUserService } from "@/services/current-user.service";
 import { useToast } from "@/context/ToastContext";
 import type { Project } from "@/types";
 import { ConfirmDialog } from "@/components/ui";
 import ProjectsSkeleton from "@/components/skeletons/ProjectsSkeleton";
 import { useApiRequest } from "@/hooks/useApiRequest";
+import { useAuth } from "@/context/AuthContext";
 
 const ProjectsPage = () => {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -26,7 +26,7 @@ const ProjectsPage = () => {
 
   const { serverError, execute } = useApiRequest();
 
-  const isAdmin = CurrentUserService.isAdmin();
+  const { isAdmin } = useAuth();
 
   const loadProjects = useCallback(
     async (searchValue?: string) => {

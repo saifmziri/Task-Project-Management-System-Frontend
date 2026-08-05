@@ -10,14 +10,13 @@ import { Button, Input, Modal, ConfirmDialog } from "@/components/ui";
 import ProjectDetailsSkeleton from "@/components/skeletons/ProjectDetailsSkeleton";
 import ProjectService from "@/services/project.service";
 import TaskService from "@/services/task.service";
-import { CurrentUserService } from "@/services/current-user.service";
 import TaskStatusForm from "@/components/task/TaskStatusForm";
 
 import type { Project, Task, User } from "@/types";
 
 import UserService from "@/services/user.service";
 import { useToast } from "@/context/ToastContext";
-
+import { useAuth } from "@/context/AuthContext";
 import { useApiRequest } from "@/hooks/useApiRequest";
 import TaskForm from "@/components/task/TaskForm";
 
@@ -41,7 +40,8 @@ const ProjectDetailsPage = () => {
 
   const { serverError, execute } = useApiRequest();
 
-  const isAdmin = CurrentUserService.isAdmin();
+  const { isAdmin } = useAuth();
+
   const handleDelete = async () => {
     if (!selectedTask) return;
 

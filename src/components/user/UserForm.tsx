@@ -4,11 +4,13 @@ import { useForm } from "react-hook-form";
 import { Button, Input } from "@/components/ui";
 
 import UserService from "@/services/user.service";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { userSchema, type userForm } from "@/schemas";
 
 import { useApiRequest } from "@/hooks/useApiRequest";
 import { useToast } from "@/context/ToastContext";
 
-import type { User, UpdateUserRequest } from "@/types";
+import type { User } from "@/types";
 
 interface UserFormProps {
   user: User;
@@ -26,7 +28,8 @@ const UserForm = ({ user, onSuccess, onCancel }: UserFormProps) => {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm<UpdateUserRequest>({
+  } = useForm<userForm>({
+    resolver: zodResolver(userSchema),
     defaultValues: {
       full_name: "",
       email: "",
@@ -42,7 +45,7 @@ const UserForm = ({ user, onSuccess, onCancel }: UserFormProps) => {
     });
   }, [user, reset]);
 
-  const onSubmit = async (data: UpdateUserRequest) => {
+  const onSubmit = async (data: userForm) => {
     const success = await execute(async () => {
       await UserService.update(user.id, data);
 
@@ -67,25 +70,17 @@ const UserForm = ({ user, onSuccess, onCancel }: UserFormProps) => {
       <div>
         <Input
           placeholder="Full name"
-          {...register("full_name", {
-            required: "Full name is required.",
-          })}
+          error={errors.full_name?.message}
+          {...register("full_name")}
         />
-
-        {errors.full_name && (
-          <p className="mt-1.5 text-[13px] text-rose-600">
-            {errors.full_name.message}
-          </p>
-        )}
       </div>
 
       <div>
         <Input
           type="email"
           placeholder="Email"
-          {...register("email", {
-            required: "Email is required.",
-          })}
+          error={errors.email?.message}
+          {...register("email")}
         />
 
         {errors.email && (
@@ -98,16 +93,9 @@ const UserForm = ({ user, onSuccess, onCancel }: UserFormProps) => {
       <div>
         <Input
           placeholder="Phone number"
-          {...register("phone_number", {
-            required: "Phone number is required.",
-          })}
+          error={errors.phone_number?.message}
+          {...register("phone_number")}
         />
-
-        {errors.phone_number && (
-          <p className="mt-1.5 text-[13px] text-rose-600">
-            {errors.phone_number.message}
-          </p>
-        )}
       </div>
 
       <div className="flex justify-end gap-3 pt-2">
