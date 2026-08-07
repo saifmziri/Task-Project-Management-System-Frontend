@@ -9,13 +9,11 @@ export interface HandledApiError {
 
 export function handleApiError(error: unknown): HandledApiError {
   if (axios.isAxiosError<ApiErrorResponse>(error)) {
-    const response = error.response?.data;
+    const response = error.response?.data as ApiErrorResponse | undefined;
 
     const validationErrors = response?.errors ?? undefined;
 
-    const firstValidationError = validationErrors
-      ? Object.values(validationErrors)[0]?.[0]
-      : undefined;
+    const firstValidationError = Object.values(validationErrors ?? {})[0]?.[0];
 
     return {
       message:

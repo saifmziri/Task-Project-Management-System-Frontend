@@ -9,7 +9,8 @@ import type {
   ResendVerificationRequest,
   ChangePasswordRequest,
   resetPasswordRequest,
-} from "../types/auth.types";
+  User,
+} from "../types/";
 import { TokenService } from "./token.service";
 import { CurrentUserService } from "./current-user.service";
 
@@ -27,13 +28,11 @@ class AuthService {
 
   async register(data: RegisterRequest): Promise<RegisterData> {
     const response = await AuthApi.register(data);
-    console.log("Register response:", response.data.data);
     return response.data.data;
   }
 
   async verifyEmail(data: VerifyEmailRequest): Promise<LoginData> {
-    const response = await AuthApi.verifyEmail(data);
-    return response.data.data!;
+    return (await AuthApi.verifyEmail(data)).data.data!;
   }
 
   async resendVerificationEmail(
@@ -44,6 +43,9 @@ class AuthService {
 
   async changePassword(data: ChangePasswordRequest): Promise<void> {
     await AuthApi.changePassword(data);
+
+    TokenService.removeToken();
+    CurrentUserService.removeUser();
   }
 
   async forgotPassword(email: string): Promise<void> {
@@ -61,7 +63,7 @@ class AuthService {
     CurrentUserService.removeUser();
   }
 
-  async getCurrentUser() {
+  async getCurrentUser(): Promise<User> {
     const response = await AuthApi.getCurrentUser();
 
     return response.data.data;

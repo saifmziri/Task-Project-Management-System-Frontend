@@ -6,6 +6,7 @@ interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 }
 
 const Textarea = ({
+  id,
   label,
   error,
   className = "",
@@ -14,13 +15,16 @@ const Textarea = ({
   return (
     <div className="space-y-1.5">
       {label && (
-        <label className="text-[14px] font-medium text-slate-700">
+        <label className="text-[14px] font-medium text-slate-700" htmlFor={id}>
           {label}
         </label>
       )}
 
       <textarea
+        id={id}
         {...props}
+        aria-invalid={!!error}
+        aria-describedby={error ? `${id}-error` : undefined}
         className={`
           w-full
           rounded-lg
@@ -47,7 +51,11 @@ const Textarea = ({
         `}
       />
 
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && (
+        <p id={`${id}-error`} className="mt-1.5 text-[13px] text-rose-600">
+          {error}
+        </p>
+      )}
     </div>
   );
 };

@@ -82,12 +82,6 @@ const UserForm = ({ user, onSuccess, onCancel }: UserFormProps) => {
           error={errors.email?.message}
           {...register("email")}
         />
-
-        {errors.email && (
-          <p className="mt-1.5 text-[13px] text-rose-600">
-            {errors.email.message}
-          </p>
-        )}
       </div>
 
       <div>

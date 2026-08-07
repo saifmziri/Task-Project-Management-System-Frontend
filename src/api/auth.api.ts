@@ -2,6 +2,8 @@ import api from "./axios";
 import { API_ENDPOINTS } from "@/constants/api-endpoints";
 
 import type {
+  ApiResponse,
+  User,
   LoginRequest,
   LoginData,
   RegisterRequest,
@@ -12,57 +14,31 @@ import type {
   resetPasswordRequest,
 } from "@/types";
 
-import type { User } from "@/types";
-import type { ApiResponse } from "@/types";
-
+// use Arrow function
 export const AuthApi = {
-  login: (data: LoginRequest) => {
-    return api.post<ApiResponse<LoginData>>(API_ENDPOINTS.AUTH.LOGIN, data);
-  },
+  login: (data: LoginRequest) =>
+    api.post<ApiResponse<LoginData>>(API_ENDPOINTS.AUTH.LOGIN, data),
 
-  register: (data: RegisterRequest) => {
-    return api.post<ApiResponse<RegisterData>>(
-      API_ENDPOINTS.AUTH.REGISTER,
-      data,
-    );
-  },
+  register: (data: RegisterRequest) =>
+    api.post<ApiResponse<RegisterData>>(API_ENDPOINTS.AUTH.REGISTER, data),
 
-  verifyEmail: (data: VerifyEmailRequest) => {
-    return api.post<ApiResponse<LoginData>>(
-      API_ENDPOINTS.AUTH.VERIFY_EMAIL,
-      data,
-    );
-  },
+  verifyEmail: (data: VerifyEmailRequest) =>
+    api.post<ApiResponse<LoginData>>(API_ENDPOINTS.AUTH.VERIFY_EMAIL, data),
 
-  resendVerificationEmail: (data: ResendVerificationRequest) => {
-    return api.post<ApiResponse<null>>(
-      API_ENDPOINTS.AUTH.RESEND_VERIFICATION,
-      data,
-    );
-  },
+  resendVerificationEmail: (data: ResendVerificationRequest) =>
+    api.post<ApiResponse<null>>(API_ENDPOINTS.AUTH.RESEND_VERIFICATION, data),
 
-  changePassword: (data: ChangePasswordRequest) => {
-    return api.post<ApiResponse<null>>(
-      API_ENDPOINTS.AUTH.CHANGE_PASSWORD,
-      data,
-    );
-  },
+  changePassword: (data: ChangePasswordRequest) =>
+    api.post<ApiResponse<null>>(API_ENDPOINTS.AUTH.CHANGE_PASSWORD, data),
 
-  logout: () => {
-    return api.post<ApiResponse<null>>(API_ENDPOINTS.AUTH.LOGOUT);
-  },
+  logout: () => api.post<ApiResponse<null>>(API_ENDPOINTS.AUTH.LOGOUT),
 
-  getCurrentUser: () => {
-    return api.get<ApiResponse<User>>(API_ENDPOINTS.AUTH.CURRENT_USER);
-  },
+  getCurrentUser: () =>
+    api.get<ApiResponse<User>>(API_ENDPOINTS.AUTH.CURRENT_USER),
 
-  forgotPassword: (email: string) => {
-    return api.post<ApiResponse<null>>(API_ENDPOINTS.AUTH.FORGOT_PASSWORD, {
-      email,
-    });
-  },
+  forgotPassword: (email: string) =>
+    api.post<ApiResponse<null>>(API_ENDPOINTS.AUTH.FORGOT_PASSWORD, { email }),
 
-  resetPassword: (data: resetPasswordRequest) => {
-    return api.post<ApiResponse<null>>(API_ENDPOINTS.AUTH.RESET_PASSWORD, data);
-  },
+  resetPassword: (data: resetPasswordRequest) =>
+    api.post<ApiResponse<null>>(API_ENDPOINTS.AUTH.RESET_PASSWORD, data),
 };

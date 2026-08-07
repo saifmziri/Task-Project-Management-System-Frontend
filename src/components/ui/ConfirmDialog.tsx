@@ -51,6 +51,7 @@ const ConfirmDialog = ({
 
       <div className="mt-6 flex justify-end gap-3">
         <Button
+          disabled={loading}
           onClick={onCancel}
           className="border border-slate-300 bg-white text-slate-700 hover:bg-slate-50"
         >

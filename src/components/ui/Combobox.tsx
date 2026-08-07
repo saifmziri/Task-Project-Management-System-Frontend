@@ -13,6 +13,7 @@ interface ComboboxProps {
   placeholder?: string;
   error?: string;
   disabled?: boolean;
+  loading?: boolean;
   onChange: (value: number | string) => void;
 }
 
@@ -24,39 +25,60 @@ const Combobox = ({
   placeholder = "Select...",
   error,
   disabled = false,
+  loading = false,
   onChange,
 }: ComboboxProps) => {
   const selectedOption =
     options.find((option) => option.value === value) ?? null;
 
   return (
-    <div className="flex flex-col gap-2">
-      <label htmlFor={id} className="text-sm font-medium text-slate-700">
+    <div>
+      <label
+        htmlFor={id}
+        className="mb-2 block text-sm font-medium text-slate-700"
+      >
         {label}
       </label>
 
       <Select
         inputId={id}
-        options={options}
+        aria-invalid={!!error}
+        aria-describedby={error ? `${id}-error` : undefined}
         value={selectedOption}
+        options={options}
         isDisabled={disabled}
-        placeholder={placeholder}
+        isLoading={loading}
         isSearchable
+        placeholder={placeholder}
+        noOptionsMessage={() => "No results found"}
+        menuPortalTarget={document.body}
+        menuPosition="fixed"
         onChange={(option: SingleValue<Option>) => {
           if (option) {
             onChange(option.value);
           }
         }}
+        styles={{
+          menuPortal: (base) => ({
+            ...base,
+            zIndex: 9999,
+          }),
+        }}
         className="text-sm"
         classNames={{
           control: (state) =>
-            `min-h-[46px] rounded-lg border ${
+            [
+              "min-h-[46px]",
+              "rounded-lg",
+              "border",
+              "shadow-none",
+              "hover:border-navy-900",
               error
                 ? "border-rose-400"
                 : state.isFocused
                   ? "border-navy-900"
-                  : "border-slate-300"
-            } shadow-none hover:border-navy-900`,
+                  : "border-slate-300",
+            ].join(" "),
           valueContainer: () => "px-2",
           input: () => "text-slate-900",
           placeholder: () => "text-slate-400",
@@ -73,7 +95,11 @@ const Combobox = ({
         }}
       />
 
-      {error && <p className="text-[13px] text-rose-600">{error}</p>}
+      {error && (
+        <p id={`${id}-error`} className="mt-1.5 text-[13px] text-rose-600">
+          {error}
+        </p>
+      )}
     </div>
   );
 };

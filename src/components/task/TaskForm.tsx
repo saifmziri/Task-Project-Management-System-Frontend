@@ -20,7 +20,10 @@ import {
 import { Combobox } from "../ui";
 
 import { TaskFormSchema, type TaskFormData } from "@/schemas";
-import { TASK_PRIORITY_OPTIONS, TASK_STATUS_OPTIONS } from "@/constants/options";
+import {
+  TASK_PRIORITY_OPTIONS,
+  TASK_STATUS_OPTIONS,
+} from "@/constants/options";
 
 interface TaskFormProps {
   task?: Task;
@@ -41,6 +44,16 @@ const TaskForm = ({
 }: TaskFormProps) => {
   const { showToast } = useToast();
   const { serverError, execute } = useApiRequest();
+
+  const projectOptions = projects.map((project) => ({
+    value: project.id,
+    label: project.name,
+  }));
+
+  const userOptions = users.map((user) => ({
+    value: user.id,
+    label: user.full_name,
+  }));
 
   const {
     control,
@@ -125,10 +138,7 @@ const TaskForm = ({
               label="Project"
               value={field.value}
               onChange={(value) => field.onChange(Number(value))}
-              options={projects.map((project) => ({
-                value: project.id,
-                label: project.name,
-              }))}
+              options={projectOptions}
               error={errors.project_id?.message}
               placeholder="Select project"
             />
@@ -145,10 +155,7 @@ const TaskForm = ({
             label="Assign User"
             value={field.value}
             onChange={(value) => field.onChange(Number(value))}
-            options={users.map((user) => ({
-              value: user.id,
-              label: user.full_name,
-            }))}
+            options={userOptions}
             error={errors.user_id?.message}
             placeholder="Select user"
           />
@@ -172,7 +179,7 @@ const TaskForm = ({
           {...register("status")}
         />
       </div>
-        
+
       <Input
         type="date"
         label="Due Date"

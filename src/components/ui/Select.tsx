@@ -10,11 +10,15 @@ interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   id: string;
   label: string;
   error?: string;
+  placeholder?: string;
   options: Option[];
 }
 
 const Select = forwardRef<HTMLSelectElement, SelectProps>(
-  ({ id, label, error, options, className = "", ...props }, ref) => {
+  (
+    { id, label, error, placeholder, options, className = "", ...props },
+    ref,
+  ) => {
     return (
       <div className="flex flex-col gap-2">
         <label htmlFor={id} className="text-sm font-medium text-slate-700">
@@ -25,6 +29,8 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
           <select
             id={id}
             ref={ref}
+            aria-invalid={!!error}
+            aria-describedby={error ? `${id}-error` : undefined}
             className={`
               w-full
               appearance-none
@@ -53,6 +59,12 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
             `}
             {...props}
           >
+            {placeholder && (
+              <option value="" disabled>
+                {placeholder}
+              </option>
+            )}
+            
             {options.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
@@ -66,7 +78,11 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
           />
         </div>
 
-        {error && <p className="text-[13px] text-rose-600">{error}</p>}
+        {error && (
+          <p id={`${id}-error`} className="mt-1.5 text-[13px] text-rose-600">
+            {error}
+          </p>
+        )}
       </div>
     );
   },

@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 
 import AppLayout from "@/layouts/AppLayout";
 
@@ -7,80 +7,64 @@ import RegisterPage from "@/pages/auth/RegisterPage";
 import VerifyEmailPage from "@/pages/auth/VerifyEmailPage";
 import ForgotPasswordPage from "@/pages/auth/ForgotPasswordPage";
 import ResetPasswordPage from "@/pages/auth/ResetPasswordPage";
+
+import DashboardPage from "@/pages/dashboard/DashboardPage";
 import ProjectsPage from "@/pages/projects/ProjectsPage";
 import ProjectDetailsPage from "@/pages/projects/ProjectDetailsPage";
 import UsersPage from "@/pages/users/UsersPage";
 import TasksPage from "@/pages/tasks/TasksPage";
-import DashboardPage from "@/pages/dashboard/DashboardPage";
-import NotFoundPage from "@/pages/NotFoundPage";
 import ProfilePage from "@/pages/profile/ProfilePage";
 
-import { TokenService } from "@/services/token.service";
+import NotFoundPage from "@/pages/NotFoundPage";
+
+import PublicRoute from "./PublicRoute";
+import ProtectedRoute from "./ProtectedRoute";
+import AdminRoute from "./AdminRoute";
+import { ROUTES } from "./routes";
 
 export const router = createBrowserRouter([
+  // Public Routes
   {
+    element: <PublicRoute />,
+    children: [
+      { path: ROUTES.LOGIN, element: <LoginPage /> },
+      { path: ROUTES.VERIFY_EMAIL, element: <VerifyEmailPage /> },
+      { path: ROUTES.FORGOT_PASSWORD, element: <ForgotPasswordPage /> },
+      { path: ROUTES.RESET_PASSWORD, element: <ResetPasswordPage /> },
+    ],
+  },
+
+  // Admin only
+  {
+    element: <AdminRoute />,
     children: [
       {
-        path: "/login",
-        element: <LoginPage />,
-      },
-      {
-        path: "/register",
+        path: ROUTES.REGISTER,
         element: <RegisterPage />,
       },
-      {
-        path: "/verify-email",
-        element: <VerifyEmailPage />,
-      },
-      {
-        path: "/forgot-password",
-        element: <ForgotPasswordPage />,
-      },
-      {
-        path: "/reset-password",
-        element: <ResetPasswordPage />,
-      },
     ],
   },
-  // noka hami shen bchna teda , pash dame user chekain de wale kainbas agar eki token habit bshet bchit
+
+  // Protected Routes
+  // Authenticated users
   {
-    element: <AppLayout />,
+    element: <ProtectedRoute />,
     children: [
       {
-        path: "/dashboard",
-        element: <DashboardPage />,
-      },
-      {
-        path: "/projects",
-        element: <ProjectsPage />,
-      },
-      {
-        path: "/projects/:id",
-        element: <ProjectDetailsPage />,
-      },
-      {
-        path: "/users",
-        element: <UsersPage />,
-      },
-      {
-        path: "/tasks",
-        element: <TasksPage />,
-      },
-      {
-        path: "/profile",
-        element: <ProfilePage />,
-      },
-      {
-        path: "/",
-        element: (
-          <Navigate
-            to={TokenService.getToken() ? "/dashboard" : "/login"}
-            replace
-          />
-        ),
+        element: <AppLayout />,
+        children: [
+          { path: ROUTES.DASHBOARD, element: <DashboardPage /> },
+          { path: ROUTES.PROJECTS, element: <ProjectsPage /> },
+          { path: ROUTES.PROJECT_DETAILS, element: <ProjectDetailsPage /> },
+          { path: ROUTES.USERS, element: <UsersPage /> },
+          { path: ROUTES.TASKS, element: <TasksPage /> },
+          { path: ROUTES.PROFILE, element: <ProfilePage /> },
+        ],
       },
     ],
   },
+
+  // 404
   {
     path: "*",
     element: <NotFoundPage />,

@@ -22,25 +22,28 @@ const Sidebar = () => {
   const { showToast } = useToast();
   const { execute } = useApiRequest();
 
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+
   const { isAdmin, logout } = useAuth();
 
   const [openLogout, setOpenLogout] = useState(false);
 
   const handleLogout = async () => {
+    setIsLoggingOut(true);
+
     const success = await execute(async () => {
       await logout();
     });
 
-    if (!success) {
-      return;
-    }
+    setIsLoggingOut(false);
+
+    if (!success) return;
 
     setOpenLogout(false);
+
     showToast("Logged out successfully.", "success");
 
-    navigate("/login", {
-      replace: true,
-    });
+    navigate("/login", { replace: true });
   };
 
   const navLinkClass = ({ isActive }: { isActive: boolean }) =>
@@ -119,6 +122,7 @@ const Sidebar = () => {
 
       <ConfirmDialog
         open={openLogout}
+        loading={isLoggingOut}
         title="Logout"
         message="Are you sure you want to logout?"
         confirmText="Logout"

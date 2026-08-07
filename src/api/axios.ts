@@ -1,5 +1,6 @@
 import axios from "axios";
 import { TokenService } from "@/services/token.service";
+import { CurrentUserService } from "@/services/current-user.service";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -16,11 +17,15 @@ api.interceptors.request.use((config) => {
   const token = TokenService.getToken();
 
   if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+    if (!config.headers.Authorization) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
   }
 
   return config;
 });
+
+const LOGIN_PATH = "/login";
 
 api.interceptors.response.use(
   (response) => response,
@@ -29,11 +34,12 @@ api.interceptors.response.use(
     if (
       axios.isAxiosError(error) &&
       error.response?.status === 401 &&
-      window.location.pathname !== "/login"
+      window.location.pathname !== LOGIN_PATH
     ) {
       TokenService.removeToken();
+      CurrentUserService.removeUser();
 
-      window.location.replace("/login");
+      window.location.replace(LOGIN_PATH);
     }
 
     return Promise.reject(error);

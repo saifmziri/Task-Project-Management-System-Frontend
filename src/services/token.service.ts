@@ -2,7 +2,7 @@ const TOKEN_KEY = "access_token";
 
 export const TokenService = {
   getToken(): string | null {
-    return localStorage.getItem(TOKEN_KEY) ?? sessionStorage.getItem(TOKEN_KEY);
+    return localStorage.getItem(TOKEN_KEY) || sessionStorage.getItem(TOKEN_KEY);
   },
 
   setToken(token: string, rememberMe: boolean): void {
@@ -21,6 +21,6 @@ export const TokenService = {
   },
 
   hasToken(): boolean {
-    return this.getToken() !== null;
+    return TokenService.getToken() !== null;
   },
 };

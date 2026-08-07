@@ -5,9 +5,12 @@ const USER_KEY = "user";
 
 export const CurrentUserService = {
   getUser(): User | null {
-    const user = localStorage.getItem(USER_KEY);
-
-    return user ? JSON.parse(user) : null;
+    try {
+      const user = localStorage.getItem(USER_KEY);
+      return user ? JSON.parse(user) : null;
+    } catch {
+      return null;
+    }
   },
 
   setUser(user: User): void {
@@ -19,10 +22,10 @@ export const CurrentUserService = {
   },
 
   isAdmin(): boolean {
-    return this.getUser()?.role_ID === UserRole.Admin;
+    return CurrentUserService.getUser()?.role_ID === UserRole.Admin;
   },
 
   isEmployee(): boolean {
-    return this.getUser()?.role_ID === UserRole.Employee;
+    return CurrentUserService.getUser()?.role_ID === UserRole.Employee;
   },
 };

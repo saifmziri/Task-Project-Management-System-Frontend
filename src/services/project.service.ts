@@ -4,8 +4,7 @@ import type { Project, GetProjectsParams, SaveProjectRequest } from "@/types";
 
 class ProjectService {
   async getAll(params?: GetProjectsParams): Promise<Project[]> {
-    const response = await ProjectApi.getAll(params);
-    return response.data.data;
+    return (await ProjectApi.getAll(params)).data.data;
   }
 
   async getById(id: number | string): Promise<Project> {

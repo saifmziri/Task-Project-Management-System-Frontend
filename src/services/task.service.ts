@@ -9,27 +9,19 @@ import type {
 
 class TaskService {
   async getAll(params?: GetTasksRequest): Promise<Task[]> {
-    const response = await TaskApi.getAll(params);
-
-    return response.data.data;
+    return (await TaskApi.getAll(params)).data.data;
   }
 
   async getById(id: number | string): Promise<Task> {
-    const response = await TaskApi.getById(id);
-
-    return response.data.data;
+    return (await TaskApi.getById(id)).data.data;
   }
 
   async create(data: SaveTaskRequest): Promise<Task> {
-    const response = await TaskApi.create(data);
-
-    return response.data.data;
+    return (await TaskApi.create(data)).data.data;
   }
 
   async update(id: number | string, data: SaveTaskRequest): Promise<Task> {
-    const response = await TaskApi.update(id, data);
-
-    return response.data.data;
+    return (await TaskApi.update(id, data)).data.data;
   }
 
   async delete(id: number | string): Promise<void> {
@@ -40,9 +32,7 @@ class TaskService {
     id: number | string,
     data: ChangeTaskStatusRequest,
   ): Promise<Task> {
-    const response = await TaskApi.changeStatus(id, data);
-
-    return response.data.data;
+    return (await TaskApi.changeStatus(id, data)).data.data;
   }
 }
 
